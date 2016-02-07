@@ -6,7 +6,7 @@ var module = angular.module('ui.bootstrap.demo');
 
 module.service('StudentAssist', function ($http,$log) {
 	
-	// this is test
+
 	var apartmentNames =[];
 	var apartmentNames2 =[{apartmentName:'apartmentNames'}];
 
