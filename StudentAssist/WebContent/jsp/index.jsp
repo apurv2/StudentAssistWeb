@@ -7,6 +7,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
     <script src="example.js"></script>
+    
         <script src="constants.js"></script>
     
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +19,7 @@
 
 <div ng-app="ui.bootstrap.demo" ng-controller="DropdownCtrl" ng-init="init()">
 
-<form class="form-horizontal">
+<form name="newVacancy" class="form-horizontal">
 <fieldset>
 
 <div class="form-group">
@@ -129,29 +130,45 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Cost/Month</label>  
   <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="cost/month" class="form-control input-md">
+  <input id="textinput" name="cost" ng-model="cost" type="number" placeholder="cost/month" class="form-control input-md" required>
   </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Notes/Comments</label>  
-  <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="notes/comments" class="form-control input-md">
-  <span class="help-block">help</span>  
-  </div>
-
+  <span style="color:red" ng-show="newVacancy.cost.$dirty && newVacancy.cost.$invalid">
+<span ng-show="newVacancy.cost.$error.required">cost per month is required</span>
+</span>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Facebook Id</label>  
   <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="Facebook Id" class="form-control input-md">
-  <span class="help-block">help</span>  
+  <input id="textinput" name="fbId" ng-model="fbId" type="number" placeholder="Facebook Id" class="form-control input-md" required>
+  </div>
+ <span style="color:red" ng-show="newVacancy.fbId.$dirty && newVacancy.fbId.$invalid">
+<span ng-show="newVacancy.fbId.$error.required">facebook Id is required</span></span>
+</div>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Notes/Comments</label>  
+  <div class="col-md-4">
+  <textarea  ng-pattern="/^[a-zA-Z0-9 .]*$/" id="textinput" name="notes" type="text" 
+  placeholder="notes/comments" class="form-control input-md" ng-model="notes" required> 
+  </textarea>
+    
+ <span style="color:red" ng-show="newVacancy.notes.$dirty && newVacancy.notes.$invalid">
+ <span ng-show="newVacancy.notes.$error.required">notes/comments are required</span> 
+ 
+  <span ng-show="newVacancy.notes.$error.pattern" >only numbers/letters allowed</span> 
+  </span>
+ 
+  
+    
   </div>
 
 </div>
+
+
 
 <!-- Button -->
 <div class="form-group">
