@@ -42,4 +42,15 @@ noOfRooms = [
 	var url="http://sassist-9vtjvsmaju.elasticbeanstalk.com/rest/accommodation/";
 
 	
+	var APARTMENT_NAME="apartmentName";
+	var NO_OF_ROOMS="noOfRooms";
+	var VACANCIES="vacancies";
+	var COST="cost";
+	var GENDER="gender";
+	var FBID="fbId";
+	var NOTES="notes";
+	var USER_ID="userId";
+	var POST_ACCOMMODATION="createAccommodationAdd";
+	
+	
 	

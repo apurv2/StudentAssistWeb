@@ -44,6 +44,11 @@ this.getAllapartmentsList2=function(){
 		  });
 		
 	}		
+	
+	
+	
+	
+	
 });
 
 
@@ -58,6 +63,8 @@ $scope.default_gender="Male";
 $scope.noOfRooms=noOfRooms;
 $scope.vacancies=vacancies;
 $scope.gender=gender;
+
+
 
 
 	
@@ -75,6 +82,28 @@ $scope.gender=gender;
 	StudentAssist.getApartmentNames("On-Campus");
 		
 		
+	
+	$scope.submitClicked= function()
+	{
+		
+		var apartmentName= $scope.apartmentNames[0].apartmentName;
+		
+		var parameters = "createAccommodationAdd?"+APARTMENT_NAME+"="+encodeURIComponent(apartmentName)+"&"
+						+NO_OF_ROOMS+"="+ encodeURIComponent($scope.default_no_rooms)+"&"
+						+VACANCIES+"="+encodeURIComponent($scope.default_vacancies)+"&"
+						+COST+"="+encodeURIComponent($scope.cost)+"&"
+						+GENDER+"="+encodeURIComponent($scope.default_gender)+"&"
+						+FBID+"="+encodeURIComponent($scope.fbId)+"&"
+						+NOTES+"="+encodeURIComponent($scope.notes);
+		
+		var submitUrl = url+ parameters;
+		
+		$log.log(submitUrl);
+						
+						
+		
+		
+	}
 
   
   $scope.changeAptName=function(apartmentName){
