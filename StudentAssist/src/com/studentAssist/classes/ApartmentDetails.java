@@ -1,17 +1,14 @@
 package com.studentAssist.classes;
 
-import com.studentAssist.classes.Apartments;
-import java.io.PrintStream;
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
+
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.classic.Session;
 
 public class ApartmentDetails {
     public static String[] apartmentNames = new String[]{"Maple Square", "Garden Club", "Autumn Hollow", "Cooper Chase", "Arbor Oaks", "Centennial Court", "Center Point", "Cottonwood Ridge N", "Cottonwood Ridge S", "Creek Bend", "Meadow Run", "Oak Landing", "Pecan Place", "Heightson Pecan", "Lofts", "Timber Brook", "University Village", "West Crossing", "Woodland Springs", "Arlington Hall", "Brazos House", "Kalpana Chawla Hall ", "Lipscomb Hall North ", "Lipscomb Hall South", "Trinity House", "Vandergriff Hall", "Manor Apartments", "University Oaks", "Zen Apartments", "Richlyn Apt", "Benge Oaks", "Pine woods ", "Vintage pads", "heights on pecan"};
