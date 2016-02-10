@@ -39,7 +39,7 @@ noOfRooms = [
 	map["Off-Campus"]="off";
 	map["Dorms"]="dorms";
 	
-	var url="http://sassist-9vtjvsmaju.elasticbeanstalk.com/rest/accommodation/";
+	var url="http://studentassist.elasticbeanstalk.com/rest/accommodation/";
 
 	
 	var APARTMENT_NAME="apartmentName";
@@ -50,7 +50,7 @@ noOfRooms = [
 	var FBID="fbId";
 	var NOTES="notes";
 	var USER_ID="userId";
-	var POST_ACCOMMODATION="createAccommodationAdd";
+	var POST_ACCOMMODATION="createAccommodationAddFromFacebook";
 	
 	
 	

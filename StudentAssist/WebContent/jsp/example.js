@@ -88,7 +88,7 @@ $scope.gender=gender;
 		
 		var apartmentName= $scope.apartmentNames[0].apartmentName;
 		
-		var parameters = "createAccommodationAdd?"+APARTMENT_NAME+"="+encodeURIComponent(apartmentName)+"&"
+		var parameters = POST_ACCOMMODATION+"?"+APARTMENT_NAME+"="+encodeURIComponent(apartmentName)+"&"
 						+NO_OF_ROOMS+"="+ encodeURIComponent($scope.default_no_rooms)+"&"
 						+VACANCIES+"="+encodeURIComponent($scope.default_vacancies)+"&"
 						+COST+"="+encodeURIComponent($scope.cost)+"&"
