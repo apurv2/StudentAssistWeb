@@ -16,6 +16,8 @@ import java.util.Set;
 
 public class PushNotification
 {
+	
+	// sends push notification
   public void processData(RAccommodationAdd advertisement, Set<AccommodationNotification> notificationSet)
   {
     Class objClass = advertisement.getClass();
@@ -38,7 +40,7 @@ public class PushNotification
           
           System.out.println("name==" + name + " value==" + method.invoke(advertisement, null));
           
-          notificationData.add(new GCMNotificationData(name, (String) method.invoke(advertisement, null)));
+          notificationData.add(new GCMNotificationData(name,""+method.invoke(advertisement, null)));
         }
         catch (Exception e)
         {

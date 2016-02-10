@@ -28,6 +28,19 @@ public class Accommodation {
 	}
 
 	@GET
+	@Path("/createAccommodationAddFromFacebook")
+	public String createAccommodationAddFromFacebook(@QueryParam("apartmentName") String apartmentName,
+			@QueryParam("noOfRooms") String noOfRooms, @QueryParam("vacancies") String vacancies,
+			@QueryParam("cost") String cost, @QueryParam("gender") String gender, @QueryParam("fbId") String fbId,
+			@QueryParam("notes") String notes, @Context HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+
+		AccommodationBO bo = new AccommodationBO();
+		return bo.createAccommodationAddFromFacebook(fbId, apartmentName, noOfRooms, vacancies, cost, gender, fbId,
+				notes);
+	}
+
+	@GET
 	@Path("/createAccommodationAdd")
 	public String createAccommodationAdd(@QueryParam("apartmentName") String apartmentName,
 			@QueryParam("noOfRooms") String noOfRooms, @QueryParam("vacancies") String vacancies,
@@ -37,10 +50,6 @@ public class Accommodation {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 
 		AccommodationBO bo = new AccommodationBO();
-
-		System.out.println(apartmentName);
-
-		noOfRooms = noOfRooms.replace("z", "/");
 		return bo.createAccommodationAdd(userId, apartmentName, noOfRooms, vacancies, cost, gender, fbId, notes);
 	}
 
@@ -126,7 +135,6 @@ public class Accommodation {
 	public List<RAccommodationAdd> getSimpleSearchAdds(@QueryParam("leftSpinner") String leftSpinner,
 			@QueryParam("rightSpinner") String rightSpinner, @Context HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("jaffaNa daffa header this one", "*");
 
 		AccommodationBO bo = new AccommodationBO();
 		return bo.getSimpleSearchAdds(leftSpinner, rightSpinner);
@@ -163,5 +171,13 @@ public class Accommodation {
 
 		AccommodationBO bo = new AccommodationBO();
 		return bo.recentListChecker(addId);
+	}
+
+	@GET
+	@Path("/test")
+	public String test() {
+
+		return "hwllo world";
+
 	}
 }

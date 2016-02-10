@@ -74,6 +74,51 @@ public class StudentAssistDAO {
 		return "success";
 	}
 
+	public String createAccommodationAddFromFacebook(Users user, AccommodationAdd advertisement, String apartmentName,
+			Session session) {
+
+		try {
+			try {
+				session.beginTransaction();
+				session.saveOrUpdate((Object) user);
+
+				Apartments examplApartment = new Apartments();
+
+				// fetch apartement type using apartmentName and update it in
+				// Apartments class
+				examplApartment.setApartmentName(apartmentName);
+				Example example = Example.create((Object) examplApartment);
+				Criteria criteria = session.createCriteria((Class) Apartments.class).add((Criterion) example);
+				List apartments = criteria.list();
+
+				// add the user and accommodation to each other
+				Apartments apartment = (Apartments) apartments.get(0);
+				this.addAccommodationAddToApartment(apartment, advertisement);
+				this.addAccommodationToUser(user, advertisement);
+
+				session.save((Object) advertisement);
+				session.getTransaction().commit();
+				sendNotification(session, apartment, advertisement, user);
+
+			} catch (Exception e) {
+				StringWriter errors = new StringWriter();
+				e.printStackTrace();
+				e.printStackTrace(new PrintWriter(errors));
+				String string = errors.toString();
+				if (session != null) {
+					session.close();
+				}
+				return string;
+			}
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return "success";
+
+	}
+
 	public String createAccommodationAdd(String userId, AccommodationAdd advertisement, String apartmentName,
 			Session session) {
 		try {
@@ -81,16 +126,19 @@ public class StudentAssistDAO {
 				session.beginTransaction();
 				Users user = (Users) session.get((Class) Users.class, (Serializable) ((Object) userId));
 				Apartments examplApartment = new Apartments();
+
 				examplApartment.setApartmentName(apartmentName);
 				Example example = Example.create((Object) examplApartment);
 				Criteria criteria = session.createCriteria((Class) Apartments.class).add((Criterion) example);
 				List apartments = criteria.list();
+
 				Apartments apartment = (Apartments) apartments.get(0);
 				this.addAccommodationAddToApartment(apartment, advertisement);
 				this.addAccommodationToUser(user, advertisement);
+
 				session.save((Object) advertisement);
 				session.getTransaction().commit();
-				this.getNotificationGCMIds(session, apartment, advertisement, user);
+				this.sendNotification(session, apartment, advertisement, user);
 			} catch (Exception e) {
 				e.printStackTrace();
 				if (session != null) {
@@ -343,31 +391,45 @@ public class StudentAssistDAO {
 		return adds;
 	}
 
-	public void getNotificationGCMIds(Session session, Apartments apartment, AccommodationAdd advertisement,
-			Users user) {
+	/**
+	 * Fetches the list of users to send notification and sends them.
+	 * 
+	 * @param session
+	 * @param apartment
+	 * @param advertisement
+	 * @param user
+	 */
+	public void sendNotification(Session session, Apartments apartment, AccommodationAdd advertisement, Users user) {
 		try {
+
 			session.beginTransaction();
 			HashSet<AccommodationNotification> notificationSet = new HashSet<AccommodationNotification>();
 			HashSet<String> userIds = new HashSet<String>();
 			HashMap<String, String> apartmentTypeCodeMap = new HashMap<String, String>();
+
 			apartmentTypeCodeMap.put("on", "On-Campus");
 			apartmentTypeCodeMap.put("off", "Off-Campus");
 			apartmentTypeCodeMap.put("dorms", "Dorms");
 			String apartmentType = (String) apartmentTypeCodeMap.get(apartment.getApartmentType());
+
 			String apartmentName = apartment.getApartmentName();
 			String gender = advertisement.getGender();
 			SimpleExpression condition1 = Restrictions.eq((String) "rightSpinner", (Object) apartmentType);
 			SimpleExpression condition2 = Restrictions.eq((String) "rightSpinner", (Object) apartmentName);
 			SimpleExpression condition3 = Restrictions.eq((String) "rightSpinner", (Object) gender);
+
 			LogicalExpression condition4 = Restrictions.and(
 					(Criterion) Restrictions.eq((String) "apartmentName", (Object) apartmentName),
 					(Criterion) Restrictions.eq((String) "gender", (Object) gender));
+
 			LogicalExpression jointCriteria = Restrictions.or(
 					(Criterion) Restrictions.or((Criterion) condition1, (Criterion) condition2),
 					(Criterion) Restrictions.or((Criterion) condition3, (Criterion) condition4));
+
 			Criteria criteria = session.createCriteria((Class) AccommodationNotification.class);
 			criteria.add((Criterion) jointCriteria);
 			List<AccommodationNotification> notifications = criteria.list();
+
 			for (AccommodationNotification notification : notifications) {
 				String userId = notification.getUser().getUserId();
 				if (userId.equals(user.getUserId()))
@@ -377,6 +439,7 @@ public class StudentAssistDAO {
 				}
 				userIds.add(userId);
 			}
+
 			System.out.println(notificationSet.size());
 			PushNotification pushNotification = new PushNotification();
 			pushNotification.processData(
