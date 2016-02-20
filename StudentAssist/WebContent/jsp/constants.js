@@ -51,6 +51,7 @@ noOfRooms = [
 	var NOTES="notes";
 	var USER_ID="userId";
 	var POST_ACCOMMODATION="createAccommodationAddFromFacebook";
+	var ON_CAMPUS="On-Campus";
 	
 	
 	

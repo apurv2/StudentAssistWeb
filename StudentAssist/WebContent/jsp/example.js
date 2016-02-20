@@ -4,32 +4,35 @@ var module = angular.module('ui.bootstrap.demo');
 
 module.service('StudentAssist', function($http, $log) {
 
-	var advertisements=[];
-	
-	
-	var apartmentNames = [];
-	var apartmentNames2 = [ {
-		apartmentName : 'apartmentNames'
-	} ];
+	var advertisements = [];
 
+	var apartmentNames = [];
+
+	var apartmentNamesTitle =[ {
+		apartmentName : 'apartmentNames'
+	}]
+	
+	
+	//returns the apartment names Title
+	this.getApartmentsTitle = function() {
+
+		return apartmentNamesTitle;
+	}
+	
+	
+	//returns all apartmentNames list
 	this.getAllapartmentsList = function() {
 
 		return apartmentNames;
 	}
 
-	this.getAllapartmentsList2 = function() {
-
-		return apartmentNames2;
-	}
-
 	// returns all advertisements
-	this.getAdvertisementsList = function()
-	{
-		
+	this.getSimpleSearchAddsList = function() {
+
 		return advertisements;
-		
+
 	}
-	
+
 	this.getApartmentNames = function(apartmentType) {
 
 		var aptNamesurl = url + "getApartmentNames?apartmentType="
@@ -37,90 +40,78 @@ module.service('StudentAssist', function($http, $log) {
 
 		$http.get(aptNamesurl).then(function(response) {
 
-			apartmentNames2.length = 0;
+			// push apartment names to populate drop-down 
 			apartmentNames.length = 0;
-
-			var temp = response.data;
-			apartmentNames.push.apply(apartmentNames, temp);
-			apartmentNames.push.apply(apartmentNames2, temp);
+			apartmentNames.push.apply(apartmentNames, response.data);
+			
+			//push apartment names to change the title of the drop-down
+			apartmentNamesTitle.length=0;
+			apartmentNamesTitle.push.apply(apartmentNamesTitle,response.data);
 
 		});
 
 	}
-	
-	this.submitAdd = function(url)
-	{
+
+	this.submitAdd = function(url) {
 		$http.get(submitUrl).then(function(response) {
-					
-			
+
 		});
 
-		
 	}
-	
-	this.getAccommodationAdds = function()
-	{
-		var urlAcc = "http://studentassist.elasticbeanstalk.com/rest/accommodation/getSimpleSearchAdds?leftSpinner=apartmentType&rightSpinner=on";
-	
-		
-		$http.get(urlAcc).then(function(response) {
-			
-			advertisements.length=0;	
-			advertisements.push.apply(advertisements,response.data);
-			
 
-			
-			
+	this.getSimpleSearchAdds = function(leftSpinner, rightSpinner) {
+		var urlAcc = url + "getSimpleSearchAdds?leftSpinner=" + leftSpinner
+				+ "&rightSpinner=" + rightSpinner;
+
+		$http.get(urlAcc).then(function(response) {
+
+			advertisements.length = 0;
+			advertisements.push.apply(advertisements, response.data);
+
 		});
-	
+
 	}
 
 });
 
-
-
-
-
-
 module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
+
+	// get the apartment names list
+	$scope.apartmentNames = StudentAssist.getAllapartmentsList();
 
 	$scope.default_no_rooms = "1 bhk/1 bath";
 	$scope.default_vacancies = "1";
 	$scope.default_gender = "Male";
+	$scope.apartmentNamesTitle = StudentAssist.getApartmentsTitle();
 
 	$scope.noOfRooms = noOfRooms;
 	$scope.vacancies = vacancies;
 	$scope.gender = gender;
 
-	
-	
 	// initilize apartmentTypes
 	$scope.apartmenTypes = apartmenTypes;
 
-	$scope.defaultApartmentName = StudentAssist.getAllapartmentsList2();
+	// initialize simple Search advertisements
+	$scope.advertisements = StudentAssist.getSimpleSearchAdds();
 
-	$scope.apartmentNames = StudentAssist.getAllapartmentsList();
+	// populate default apartment names when application starts.
+	StudentAssist.getApartmentNames(ON_CAMPUS);
 	
-	$scope.advertisements = StudentAssist.getAdvertisementsList();
-
-	StudentAssist.getApartmentNames("On-Campus");
-	
-	$scope.getAccommodationAdds = function(apartmentName)
-	{
+	// gets simple serarch adds
+	$scope.getAccommodationAdds = function(apartmentName) {
+		
 		var temp = [ {
 			apartmentName : apartmentName
 		} ];
 
-		$scope.defaultApartmentName.length = 0;
+		$scope.apartmentNamesTitle.length = 0;
 
-		$scope.defaultApartmentName.push.apply($scope.defaultApartmentName,
-				temp);		
+		$scope.apartmentNamesTitle.push.apply($scope.apartmentNamesTitle,
+				temp);
 		
+		
+		//StudentAssist.getSimpleSearchAdds();
 
-		
-		StudentAssist.getAccommodationAdds();
-		
-		
 	}
 
 	$scope.submitClicked = function() {
@@ -139,21 +130,24 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 		var submitUrl = url + parameters;
 		StudentAssist.submitAdd(submitUrl);
 
-		
 		$log.log(submitUrl);
 
 	}
 
+	
+	
 	$scope.changeAptName = function(apartmentName) {
 
 		var temp = [ {
 			apartmentName : apartmentName
 		} ];
 
-		$scope.defaultApartmentName.length = 0;
+		$scope.apartmentNamesTitle.length = 0;
 
-		$scope.defaultApartmentName.push.apply($scope.defaultApartmentName,
+		$scope.apartmentNamesTitle.push.apply($scope.apartmentNamesTitle,
 				temp);
+		
+		
 
 	}
 
@@ -181,8 +175,7 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 	}
 
 	$scope.init = function() {
-		$scope.apartmentType = "apartmentTypes";
-		$scope.aptName = "apartmentNames";
+		$scope.apartmentType = apartmenTypes[0];
 	}
 
 	$scope.status = {
