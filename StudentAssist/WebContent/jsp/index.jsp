@@ -10,6 +10,8 @@
 <script src="example.js"></script>
 
 <script src="constants.js"></script>
+<script src="fbscript.js"></script>
+
 
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -177,5 +179,15 @@
 
 			</fieldset>
 		</form>
+
+	</div>
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+
 </body>
+
 </html>
