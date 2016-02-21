@@ -79,13 +79,11 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 		leftSpinner= leftSpinnerCodeMap[leftSpinner];
 		rightSpinner = encodeURIComponent(queryparam);
 		
-		$log.log(leftSpinner);
 
 		
 		StudentAssist.getSimpleSearchAdds(leftSpinner,rightSpinner).success(
 						function(response) {
 
-							$log.log(response);
 							
 							$scope.advertisements.length=0;	
 							$scope.advertisements.push.apply($scope.advertisements,response);
@@ -108,7 +106,9 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 		if(leftSpinner==APARTMENT_TYPE)
 			{
 			
-			$scope.rightSpinnerValues = apartmentTypes;
+			$scope.rightSpinnerValues.length=0;
+			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,apartmentTypes);
+
 			$scope.rightSpinnerHeader = apartmentTypes[0];
 
 			$scope.getSimpleSearchAds($scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
@@ -124,7 +124,7 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 						for(var i=0;i<response.length;i++)
 							{
 							
-							$scope.rightSpinnerValues.push(response[i].apartmentName);
+		$scope.rightSpinnerValues.push(response[i].apartmentName);
 
 							
 							}
@@ -139,7 +139,12 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 			}
 		else
 			{
-			$scope.rightSpinnerValues = gender;
+			
+			$log.log(gender);
+			
+			$scope.rightSpinnerValues.length=0;
+			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,gender);
+
 			$scope.rightSpinnerHeader = gender[0];
 			$scope.getSimpleSearchAds($scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
 
@@ -157,7 +162,6 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 	// 2. ets the advertisements related to left and right spinners.
 	$scope.rightSpinner = function(rightSpinner) {
 
-		$log.log(rightSpinner);
 		
 		$scope.rightSpinnerHeader = rightSpinner;
 		$scope.getSimpleSearchAds($scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
@@ -181,7 +185,6 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 		var submitUrl = url + parameters;
 		StudentAssist.submitAdd(submitUrl);
 
-		$log.log(submitUrl);
 
 	}
 
