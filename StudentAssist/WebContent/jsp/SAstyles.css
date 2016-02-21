@@ -26,6 +26,44 @@ img {
 	border-radius: 50%;
 }
 
+
+ .pane-list-body {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    background-color: #fefefe;
+    overflow-y: auto;
+    display: flex;
+}
+
+*::-webkit-scrollbar {
+    width: 6px!important;
+}
+
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+}
+
+Pseudo ::scrollbar-track element
+*::-webkit-scrollbar-track {
+    background: rgba(255,255,255,.08);
+}
+
+.scrollbar
+{
+	margin-left: 30px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
 .chat {
 	position: relative;
 	cursor: pointer;

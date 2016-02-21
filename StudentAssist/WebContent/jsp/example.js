@@ -48,6 +48,16 @@ module.service('StudentAssist', function($http, $log) {
 
 });
 
+module.controller('advancedSearchController', function($scope, $log, $http, StudentAssist) {
+
+	
+	
+	
+
+
+});
+
+
 module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 
 
