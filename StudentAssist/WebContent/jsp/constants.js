@@ -38,3 +38,4 @@ var ON_CAMPUS = "On-Campus";
 var APARTMENT_TYPE='Apartment Type';
 var APARTMENT_NAME='Apartment Name';
 var GENDER_SPINNER='Gender';
+var MALE="Male";

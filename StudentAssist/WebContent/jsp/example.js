@@ -4,38 +4,30 @@ var module = angular.module('ui.bootstrap.demo');
 
 module.service('StudentAssist', function($http, $log) {
 
-	/*this.getApartmentNames = function(leftSpinner) {
+	this.getApartmentNames = function(apartmentType) {
 
 		var aptNamesurl = url + "getApartmentNames?apartmentType="
-				+ map[leftSpinner];
-		
+				+ map[apartmentType];
+
 		$log.log(aptNamesurl);
 
 		return $http.get(aptNamesurl);
 	};
-*/
-	
-	this.getAllApartmentNames = function()
-	{
-		var aptNamesurl=url+"getAllApartmentNames";
-		
-		
+
+	this.getAllApartmentNames = function() {
+		var aptNamesurl = url + "getAllApartmentNames";
+
 		return $http.get(aptNamesurl);
 	}
-	
-	
+
 	this.getSimpleSearchAdds = function(leftSpinner, rightSpinner) {
 
-		
-		
 		var urlAcc = url + "getSimpleSearchAdds?leftSpinner=" + leftSpinner
 				+ "&rightSpinner=" + rightSpinner;
 
 		return $http.get(urlAcc);
 
 	};
-	
-	
 
 	this.submitAdd = function(url) {
 		$http.get(submitUrl).then(function(response) {
@@ -44,29 +36,93 @@ module.service('StudentAssist', function($http, $log) {
 
 	}
 
-	
+	this.advancedSearch = function(apartmentName, gender) {
+		// alert("hello");
+
+		var advancedSearchUrl = url
+				+ "getAdvancedAdvertisements?apartmentName=" + apartmentName
+				+ "&gender=" + gender;
+
+		return $http.get(advancedSearchUrl);
+
+	}
 
 });
 
-module.controller('advancedSearchController', function($scope, $log, $http, StudentAssist) {
+module.controller('advancedSearchController', function($scope, $log, $http,
+		StudentAssist) {
 
-	
-	
-	
+	$scope.apartmentTypeHeader = ON_CAMPUS;
+	$scope.apartmentNameHeader = "";
+	$scope.genderHeader = MALE;
 
+	$scope.apartmentTypes = apartmentTypes;
+	$scope.apartmentNames = [];
+	$scope.gender = gender;
+	$scope.advertisements = [];
+
+	$scope.apartmentType = function(apartmentType) {
+
+		$scope.apartmentTypeHeader = apartmentType;
+
+		StudentAssist.getApartmentNames(apartmentType).success(
+				function(response) {
+
+					$scope.apartmentNameHeader = response[0].apartmentName;
+					$scope.apartmentNames.length = 0;
+					$scope.apartmentNames.push.apply($scope.apartmentNames,
+							response);
+					$log.log(response);
+
+				}).error(function(response) {
+		});
+
+	}
+
+	$scope.searchVacancy = function() {
+
+		var apartmentName = encodeURIComponent($scope.apartmentNameHeader);
+		var gender = encodeURIComponent($scope.genderHeader);
+
+		StudentAssist.advancedSearch(apartmentName, gender).success(
+				function(response) {
+
+					$log.log(response);
+
+					$scope.advertisements.length = 0;
+					$scope.advertisements.push.apply($scope.advertisements,
+							response);
+
+				}).error(function(response) {
+		});
+
+	}
+
+	$scope.apartmentType(ON_CAMPUS);
+
+	$scope.apartmentName = function(apartmentName) {
+
+		$scope.apartmentNameHeader = apartmentName;
+
+	}
+
+	$scope.changeGenderHeader = function(gender) {
+
+		$scope.genderHeader = gender;
+
+	}
 
 });
 
-
-module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
-
-
+module.controller('simpleSearchController', function($scope, $log, $http,
+		StudentAssist) {
 
 	$scope.leftSpinnerHeader = APARTMENT_TYPE;
 	$scope.rightSpinnerHeader = "";
 
 	$scope.rightSpinnerValues = [];
 	$scope.advertisements=[];
+	
 
 	$scope.default_no_rooms = "1 bhk/1 bath";
 	$scope.default_vacancies = "1";
@@ -78,93 +134,88 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 	// initilize leftSpinner
 	$scope.leftSpinnerValues = leftSpinnerValues;
 
-	$scope.getSimpleSearchAds = function(leftSpinner,rightSpinner) {
-		
-		
-		var queryparam="";
-		
-		
-		queryparam=map[rightSpinner]==null?rightSpinner:map[rightSpinner];
-		
-		leftSpinner= leftSpinnerCodeMap[leftSpinner];
+	$scope.getSimpleSearchAds = function(leftSpinner, rightSpinner) {
+
+		var queryparam = "";
+
+		queryparam = map[rightSpinner] == null ? rightSpinner
+				: map[rightSpinner];
+
+		leftSpinner = leftSpinnerCodeMap[leftSpinner];
 		rightSpinner = encodeURIComponent(queryparam);
-		
 
 		
-		StudentAssist.getSimpleSearchAdds(leftSpinner,rightSpinner).success(
-						function(response) {
+		// get simple serarch adds
+		StudentAssist.getSimpleSearchAdds(leftSpinner, rightSpinner).success(
+				function(response) {
+					
+					$scope.advertisements.length = 0;
+					$scope.advertisements.push.apply($scope.advertisements,
+							response);
+					
+					$log.log($scope.advertisements);
 
-							
-							$scope.advertisements.length=0;	
-							$scope.advertisements.push.apply($scope.advertisements,response);
-							
-						
-						}).error(function(response) {
-				});
+
+				}).error(function(response) {
+		});
 
 	}
-	
 
 	/*
 	 * 1. changes value of left spinner 2. gets new values for right spinner 3.
 	 * gets the advertisements related to left and right spinners.
 	 */
 	$scope.leftSpinner = function(leftSpinner) {
-		
+
 		$scope.leftSpinnerHeader = leftSpinner;
-		
-		if(leftSpinner==APARTMENT_TYPE)
-			{
-			
-			$scope.rightSpinnerValues.length=0;
-			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,apartmentTypes);
+
+		if (leftSpinner == APARTMENT_TYPE) {
+
+			$scope.rightSpinnerValues.length = 0;
+			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,
+					apartmentTypes);
 
 			$scope.rightSpinnerHeader = apartmentTypes[0];
 
-			$scope.getSimpleSearchAds($scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
+			$scope.getSimpleSearchAds($scope.leftSpinnerHeader,
+					$scope.rightSpinnerHeader);
 
-			}
-		else if(leftSpinner==APARTMENT_NAME)
-			{
+		} else if (leftSpinner == APARTMENT_NAME) {
 			StudentAssist.getAllApartmentNames().success(
 					function(response) {
-						
-						$scope.rightSpinnerValues.length=0;
-						
-						for(var i=0;i<response.length;i++)
-							{
-							
-		$scope.rightSpinnerValues.push(response[i].apartmentName);
 
-							
-							}
-						
-						
+						$scope.rightSpinnerValues.length = 0;
+
+						for (var i = 0; i < response.length; i++) {
+
+							$scope.rightSpinnerValues
+									.push(response[i].apartmentName);
+
+						}
+
 						$scope.rightSpinnerHeader = response[0].apartmentName;
-						
-						$scope.getSimpleSearchAds($scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
+
+						$scope.getSimpleSearchAds($scope.leftSpinnerHeader,
+								$scope.rightSpinnerHeader);
 					}).error(function(response) {
 			});
-			
-			}
-		else
-			{
-			
+
+		} else {
+
 			$log.log(gender);
-			
-			$scope.rightSpinnerValues.length=0;
-			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,gender);
+
+			$scope.rightSpinnerValues.length = 0;
+			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,
+					gender);
 
 			$scope.rightSpinnerHeader = gender[0];
-			$scope.getSimpleSearchAds($scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
+			$scope.getSimpleSearchAds($scope.leftSpinnerHeader,
+					$scope.rightSpinnerHeader);
 
-			}
-
-		
+		}
 
 	}
 
-	
 	// calling left spinner to get the deafult values at page load.
 	$scope.leftSpinner($scope.leftSpinnerHeader);
 
@@ -172,10 +223,9 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 	// 2. ets the advertisements related to left and right spinners.
 	$scope.rightSpinner = function(rightSpinner) {
 
-		
 		$scope.rightSpinnerHeader = rightSpinner;
-		$scope.getSimpleSearchAds($scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
-
+		$scope.getSimpleSearchAds($scope.leftSpinnerHeader,
+				$scope.rightSpinnerHeader);
 
 	}
 
@@ -194,7 +244,6 @@ module.controller('DropdownCtrl', function($scope, $log, $http, StudentAssist) {
 
 		var submitUrl = url + parameters;
 		StudentAssist.submitAdd(submitUrl);
-
 
 	}
 

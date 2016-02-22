@@ -18,9 +18,7 @@ img {
 
 .icon-user-default, .icon-user-default-square, .icon-group-default,
 	.icon-broadcast-default {
-	background-image:
-		url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…wxMDkuMzE3LDg0Ljg0LDEyNS41LDEwNi4wMDIsMTI1LjV6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==);
-}
+	}
 
 .avatar, .avatar-image {
 	border-radius: 50%;
@@ -36,7 +34,6 @@ img {
     display: -webkit-flex;
     display: -ms-flexbox;
     background-color: #fefefe;
-    overflow-y: auto;
     display: flex;
 }
 
@@ -53,6 +50,27 @@ Pseudo ::scrollbar-track element
 *::-webkit-scrollbar-track {
     background: rgba(255,255,255,.08);
 }
+
+.button {
+    background-color: #BDBDBD; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+
+.searchVacancy:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
 
 .scrollbar
 {
