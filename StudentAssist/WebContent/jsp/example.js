@@ -29,8 +29,12 @@ module.service('StudentAssist', function($http, $log) {
 
 	};
 
-	this.submitAdd = function(url) {
+	this.submitAdd = function(submitUrl) {
 		$http.get(submitUrl).then(function(response) {
+
+			$log.log(response);
+
+			window.alert(response.data);
 
 		});
 
@@ -114,6 +118,130 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 
 });
 
+module.controller('postAccommodationController', function($scope, $log, $http,
+		StudentAssist) {
+
+	$scope.apartmentTypeHeader = ON_CAMPUS;
+	$scope.apartmentNameHeader = "";
+	$scope.genderHeader = MALE;
+	$scope.noOfRoomsHeader = noOfRooms[0];
+	$scope.vacanciesHeader = vacancies[0];
+
+	$scope.vacancies = vacancies;
+	$scope.noOfRooms = noOfRooms;
+	$scope.apartmentTypes = apartmentTypes;
+	$scope.apartmentNames = [];
+	$scope.gender = gender;
+	$scope.advertisements = [];
+
+	$scope.apartmentType = function(apartmentType) {
+
+		$scope.apartmentTypeHeader = apartmentType;
+
+		StudentAssist.getApartmentNames(apartmentType).success(
+				function(response) {
+
+					$scope.apartmentNameHeader = response[0].apartmentName;
+					$scope.apartmentNames.length = 0;
+					$scope.apartmentNames.push.apply($scope.apartmentNames,
+							response);
+					$log.log(response);
+
+				}).error(function(response) {
+		});
+
+	}
+
+	$scope.searchVacancy = function() {
+
+		var apartmentName = encodeURIComponent($scope.apartmentNameHeader);
+		var gender = encodeURIComponent($scope.genderHeader);
+
+		StudentAssist.advancedSearch(apartmentName, gender).success(
+				function(response) {
+
+					$log.log(response);
+
+					$scope.advertisements.length = 0;
+					$scope.advertisements.push.apply($scope.advertisements,
+							response);
+
+				}).error(function(response) {
+		});
+
+	}
+
+	$scope.apartmentType(ON_CAMPUS);
+
+	$scope.apartmentName = function(apartmentName) {
+
+		$scope.apartmentNameHeader = apartmentName;
+
+	}
+
+	$scope.changeGenderHeader = function(gender) {
+
+		$scope.genderHeader = gender;
+
+	}
+
+	$scope.changeNoOfRoomsHeader = function(noOfRooms) {
+
+		$scope.noOfRoomsHeader = noOfRooms;
+
+	}
+
+	$scope.changeVacanciesHeader = function(vacancies) {
+		$scope.vacanciesHeader = vacancies;
+	}
+
+	$scope.postVacancy = function(firstName, lastName) {
+
+		var parameters = POST_ACCOMMODATION + "?" + APARTMENT_NAME + "="
+				+ encodeURIComponent($scope.apartmentNameHeader) + "&"
+				+ NO_OF_ROOMS + "="
+				+ encodeURIComponent($scope.noOfRoomsHeader) + "&" + VACANCIES
+				+ "=" + encodeURIComponent($scope.vacanciesHeader) + "&" + COST
+				+ "=" + encodeURIComponent($scope.cost) + "&" + GENDER + "="
+				+ encodeURIComponent($scope.genderHeader) + "&" + FBID + "="
+				+ encodeURIComponent($scope.fbId) + "&" + NOTES + "="
+				+ encodeURIComponent($scope.notes) + "&" + FIRST_NAME + "="
+				+ encodeURIComponent(firstName) + "&" + LAST_NAME + "="
+				+ encodeURIComponent(lastName);
+
+		var submitUrl = url + parameters;
+
+		$log.log("url==" + submitUrl);
+
+		// StudentAssist.submitAdd(submitUrl);
+
+	}
+
+	$scope.submitClicked = function() {
+
+		FB.getLoginStatus(function(response) {
+			if (response.status === 'connected') {
+
+				FB.api('/' + $scope.fbId, function(response) {
+
+					var split = response.name.split(" ");
+					var firstName, lastName;
+
+					if (split.length > 1) {
+
+						firstName = split[0];
+						lastName = split[split.length - 1];
+						$scope.postVacancy(firstName, lastName);
+
+					}
+
+				});
+			}
+		});
+	}
+
+});
+
 module.controller('simpleSearchController', function($scope, $log, $http,
 		StudentAssist) {
 
@@ -121,8 +249,7 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 	$scope.rightSpinnerHeader = "";
 
 	$scope.rightSpinnerValues = [];
-	$scope.advertisements=[];
-	
+	$scope.advertisements = [];
 
 	$scope.default_no_rooms = "1 bhk/1 bath";
 	$scope.default_vacancies = "1";
@@ -144,17 +271,15 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 		leftSpinner = leftSpinnerCodeMap[leftSpinner];
 		rightSpinner = encodeURIComponent(queryparam);
 
-		
 		// get simple serarch adds
 		StudentAssist.getSimpleSearchAdds(leftSpinner, rightSpinner).success(
 				function(response) {
-					
+
 					$scope.advertisements.length = 0;
 					$scope.advertisements.push.apply($scope.advertisements,
 							response);
-					
-					$log.log($scope.advertisements);
 
+					$log.log($scope.advertisements);
 
 				}).error(function(response) {
 		});
