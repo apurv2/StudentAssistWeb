@@ -46,13 +46,13 @@ public class AccommodationBO {
 	}
 
 	public String createAccommodationAddFromFacebook(String userId, String apartmentName, String noOfRooms,
-			String vacancies, String cost, String gender, String fbId, String notes) {
+			String vacancies, String cost, String gender, String fbId, String notes,String firstName,String lastName) {
 		Session session = this.sessionFactory.openSession();
 
 		Users user = new Users();
 
-		user.setFirstName("FBuser");
-		user.setLastName("FBuser");
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
 		user.setPhoneNumber("Fbuser");
 		user.setEmail("Fbuser");
 		user.setGcmId("Fbuser");

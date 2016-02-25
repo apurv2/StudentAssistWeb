@@ -32,12 +32,12 @@ public class Accommodation {
 	public String createAccommodationAddFromFacebook(@QueryParam("apartmentName") String apartmentName,
 			@QueryParam("noOfRooms") String noOfRooms, @QueryParam("vacancies") String vacancies,
 			@QueryParam("cost") String cost, @QueryParam("gender") String gender, @QueryParam("fbId") String fbId,
-			@QueryParam("notes") String notes, @Context HttpServletResponse response) {
+			@QueryParam("notes") String notes,@QueryParam("firstName") String firstName,@QueryParam("lastName") String lastName, @Context HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 
 		AccommodationBO bo = new AccommodationBO();
 		return bo.createAccommodationAddFromFacebook(fbId, apartmentName, noOfRooms, vacancies, cost, gender, fbId,
-				notes);
+				notes,firstName,lastName);
 	}
 
 	@GET
