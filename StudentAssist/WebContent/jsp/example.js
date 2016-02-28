@@ -9,7 +9,6 @@ module.service('StudentAssist', function($http, $log) {
 		var aptNamesurl = url + "getApartmentNames?apartmentType="
 				+ map[apartmentType];
 
-		$log.log(aptNamesurl);
 
 		return $http.get(aptNamesurl);
 	};
@@ -32,7 +31,6 @@ module.service('StudentAssist', function($http, $log) {
 	this.submitAdd = function(submitUrl) {
 		$http.get(submitUrl).then(function(response) {
 
-			$log.log(response);
 
 			window.alert(response.data);
 
@@ -76,7 +74,6 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 					$scope.apartmentNames.length = 0;
 					$scope.apartmentNames.push.apply($scope.apartmentNames,
 							response);
-					$log.log(response);
 
 				}).error(function(response) {
 		});
@@ -91,7 +88,6 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 		StudentAssist.advancedSearch(apartmentName, gender).success(
 				function(response) {
 
-					$log.log(response);
 
 					$scope.advertisements.length = 0;
 					$scope.advertisements.push.apply($scope.advertisements,
@@ -145,7 +141,6 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 					$scope.apartmentNames.length = 0;
 					$scope.apartmentNames.push.apply($scope.apartmentNames,
 							response);
-					$log.log(response);
 
 				}).error(function(response) {
 		});
@@ -160,7 +155,6 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 		StudentAssist.advancedSearch(apartmentName, gender).success(
 				function(response) {
 
-					$log.log(response);
 
 					$scope.advertisements.length = 0;
 					$scope.advertisements.push.apply($scope.advertisements,
@@ -211,7 +205,6 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 
 		var submitUrl = url + parameters;
 
-		$log.log("url==" + submitUrl);
 
 		// StudentAssist.submitAdd(submitUrl);
 
@@ -279,7 +272,6 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 					$scope.advertisements.push.apply($scope.advertisements,
 							response);
 
-					$log.log($scope.advertisements);
 
 				}).error(function(response) {
 		});
@@ -305,7 +297,7 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 			$scope.getSimpleSearchAds($scope.leftSpinnerHeader,
 					$scope.rightSpinnerHeader);
 
-		} else if (leftSpinner == APARTMENT_NAME) {
+		} else if (leftSpinner == APARTMENT_NAME2) {
 			StudentAssist.getAllApartmentNames().success(
 					function(response) {
 
@@ -327,7 +319,6 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 
 		} else {
 
-			$log.log(gender);
 
 			$scope.rightSpinnerValues.length = 0;
 			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,
