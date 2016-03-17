@@ -1,6 +1,64 @@
+
+
+
 angular.module('ui.bootstrap.demo', [ 'ngAnimate', 'ui.bootstrap' ]);
 
 var module = angular.module('ui.bootstrap.demo');
+
+
+
+module.directive("mdpagination", function(){
+    return {
+        restrict: 'A',
+        scope: false, //default
+        link: function(scope, element, attrs){
+            element.on('click', function(event){
+
+
+   		     
+
+  			  event.preventDefault();
+  		      
+  		      
+  		      var $div = $('<div/>'),
+  		          btnOffset = $(this).offset(),
+  		      		xPos = event.pageX - btnOffset.left,
+  		      		yPos = event.pageY - btnOffset.top;
+  		      
+
+  		      
+  		      $div.addClass('ripple-effect');
+  		      var $ripple = $(".ripple-effect");
+  		      
+  		      $ripple.css("height", $(this).height());
+  		      $ripple.css("width", $(this).height());
+  		      $div
+  		        .css({
+  		          top: yPos - ($ripple.height()/2),
+  		          left: xPos - ($ripple.width()/2),
+  		          background: $(this).data("ripple-color")
+  		        }) 
+  		        .appendTo($(this));
+
+  		      window.setTimeout(function(){
+  		        $div.remove();
+  		      }, 2000);
+  		    
+            
+            
+            })
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
 
 module.service('StudentAssist', function($http, $log) {
 
@@ -8,7 +66,6 @@ module.service('StudentAssist', function($http, $log) {
 
 		var aptNamesurl = url + "getApartmentNames?apartmentType="
 				+ map[apartmentType];
-
 
 		return $http.get(aptNamesurl);
 	};
@@ -30,7 +87,6 @@ module.service('StudentAssist', function($http, $log) {
 
 	this.submitAdd = function(submitUrl) {
 		$http.get(submitUrl).then(function(response) {
-
 
 			window.alert(response.data);
 
@@ -54,6 +110,7 @@ module.service('StudentAssist', function($http, $log) {
 module.controller('advancedSearchController', function($scope, $log, $http,
 		StudentAssist) {
 
+	
 	$scope.apartmentTypeHeader = ON_CAMPUS;
 	$scope.apartmentNameHeader = "";
 	$scope.genderHeader = MALE;
@@ -63,6 +120,18 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 	$scope.gender = gender;
 	$scope.advertisements = [];
 
+	$scope.adDetails_apartmentName = "appugadu";
+	
+	
+	$scope.fbCallBack = function()
+	{
+		
+		
+		console.log("aptName=="+	$scope.adDetails_apartmentName);
+		
+	}
+	
+	
 	$scope.apartmentType = function(apartmentType) {
 
 		$scope.apartmentTypeHeader = apartmentType;
@@ -79,6 +148,24 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 		});
 
 	}
+	
+	// called when an add on left panel is clicked
+	$scope.addClick = function(advertisement) {
+		
+			$scope.adDetails_apartmentName = advertisement.apartmentName;
+			$scope.adDetails_noOfRooms = advertisement.noOfRooms;
+			$scope.adDetails_vacancies =advertisement.vacancies;
+			$scope.adDetails_cost = advertisement.cost;
+			$scope.adDetails_notes = advertisement.notes;
+			$scope.adDetails_gender = advertisement.gender;
+			$scope.adDetails_userId =advertisement.userId;
+			$scope.adDetails_name =advertisement.firstName +" "+advertisement.lastName ;
+			
+			console.log("vcalue=="+	$scope.adDetails_apartmentName);
+
+
+	}
+
 
 	$scope.searchVacancy = function() {
 
@@ -88,11 +175,27 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 		StudentAssist.advancedSearch(apartmentName, gender).success(
 				function(response) {
 
-
 					$scope.advertisements.length = 0;
 					$scope.advertisements.push.apply($scope.advertisements,
 							response);
+					
+					
 
+					if($scope.advertisements.length>0)
+						{
+					$scope.adDetails_apartmentName = $scope.advertisements[0].apartmentName;
+					$scope.adDetails_noOfRooms = $scope.advertisements[0].noOfRooms;
+					$scope.adDetails_vacancies =$scope.advertisements[0].vacancies;
+					$scope.adDetails_cost = $scope.advertisements[0].cost;
+					$scope.adDetails_notes = $scope.advertisements[0].notes;
+					$scope.adDetails_gender = $scope.advertisements[0].gender;
+					$scope.adDetails_userId =$scope.advertisements[0].userId;
+					$scope.adDetails_name =$scope.advertisements[0].firstName +" "+$scope.advertisements[0].lastName ;
+
+						}
+
+					
+					
 				}).error(function(response) {
 		});
 
@@ -155,7 +258,6 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 		StudentAssist.advancedSearch(apartmentName, gender).success(
 				function(response) {
 
-
 					$scope.advertisements.length = 0;
 					$scope.advertisements.push.apply($scope.advertisements,
 							response);
@@ -164,6 +266,8 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 		});
 
 	}
+	
+	
 
 	$scope.apartmentType(ON_CAMPUS);
 
@@ -205,7 +309,6 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 
 		var submitUrl = url + parameters;
 
-
 		// StudentAssist.submitAdd(submitUrl);
 
 	}
@@ -237,7 +340,7 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 
 module.controller('simpleSearchController', function($scope, $log, $http,
 		StudentAssist) {
-
+	
 	$scope.leftSpinnerHeader = APARTMENT_TYPE;
 	$scope.rightSpinnerHeader = "";
 
@@ -271,6 +374,20 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 					$scope.advertisements.length = 0;
 					$scope.advertisements.push.apply($scope.advertisements,
 							response);
+					
+					if($scope.advertisements.length>0)
+						{
+					
+					$scope.adDetails_apartmentName = $scope.advertisements[0].apartmentName;
+					$scope.adDetails_noOfRooms = $scope.advertisements[0].noOfRooms;
+					$scope.adDetails_vacancies =$scope.advertisements[0].vacancies;
+					$scope.adDetails_cost = $scope.advertisements[0].cost;
+					$scope.adDetails_notes = $scope.advertisements[0].notes;
+					$scope.adDetails_gender = $scope.advertisements[0].gender;
+					$scope.adDetails_userId =$scope.advertisements[0].userId;
+					$scope.adDetails_name =$scope.advertisements[0].firstName +" "+$scope.advertisements[0].lastName ;
+
+						}
 
 
 				}).error(function(response) {
@@ -278,6 +395,7 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 
 	}
 
+	
 	/*
 	 * 1. changes value of left spinner 2. gets new values for right spinner 3.
 	 * gets the advertisements related to left and right spinners.
@@ -319,7 +437,6 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 
 		} else {
 
-
 			$scope.rightSpinnerValues.length = 0;
 			$scope.rightSpinnerValues.push.apply($scope.rightSpinnerValues,
 					gender);
@@ -342,6 +459,26 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 		$scope.rightSpinnerHeader = rightSpinner;
 		$scope.getSimpleSearchAds($scope.leftSpinnerHeader,
 				$scope.rightSpinnerHeader);
+
+	}
+	
+	
+	// called when an add on left panel is clicked
+	$scope.addClick = function(advertisement) {
+		
+		
+			$scope.adDetails_apartmentName = advertisement.apartmentName;
+			$scope.adDetails_noOfRooms = advertisement.noOfRooms;
+			$scope.adDetails_vacancies =advertisement.vacancies;
+			$scope.adDetails_cost = advertisement.cost;
+			$scope.adDetails_notes = advertisement.notes;
+			$scope.adDetails_gender = advertisement.gender;
+			$scope.adDetails_userId =advertisement.userId;
+			$scope.adDetails_name =advertisement.firstName +" "+advertisement.lastName ;
+
+			
+			console.log("apt nddddame=="+$scope.adDetails_apartmentName);
+
 
 	}
 

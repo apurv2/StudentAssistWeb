@@ -16,54 +16,103 @@ img {
 	outline: none;
 }
 
-.icon-user-default, .icon-user-default-square, .icon-group-default,
-	.icon-broadcast-default {
-	}
+
+
+
+
+div.rippleAddList{
+  position: relative;
+  border: none;
+  outline:none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+
+.material{
+  position:relative;
+  color:white;
+  margin: 20px auto;
+  height:400px;
+  width:500px;
+  background:#f45673;
+  
+}
+
+.ripple{
+  overflow:hidden;
+}
+
+.ripple-effect{
+  position: absolute;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background: grey;
+
+    
+  animation: ripple-animation 2s;
+}
+
+
+@keyframes ripple-animation {
+    from {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+    to {
+      transform: scale(100);
+      opacity: 0;
+    }
+}
+
+
 
 .avatar, .avatar-image {
 	border-radius: 50%;
 	width: 50px;
-    height: 50px;
+	height: 50px;
 }
-
-
-
 
 *::-webkit-scrollbar {
-    width: 6px!important;
+	width: 6px !important;
 }
 
-
 *::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,.2);
+	background-color: rgba(0, 0, 0, .2);
 }
 
 Pseudo ::scrollbar-track element
 *::-webkit-scrollbar-track {
-    background: rgba(255,255,255,.08);
+	background: rgba(255, 255, 255, .08);
 }
+#sidebar {
+    max-height: 100%;
+}
+#sidebar {
+    overflow-y: auto;
+}
+
 
 .button {
-    background-color: #BDBDBD; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
+	background-color: #BDBDBD; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
 }
-
 
 .searchVacancy:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
 }
-
-
 
 .chat {
 	position: relative;
@@ -88,6 +137,14 @@ Pseudo ::scrollbar-track element
 	padding: 13px 15px 0 0;
 }
 
+.apartmentDetails {
+	-webkit-box-flex: 1;
+	-webkit-flex-grow: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+	padding: 13px 15px 0 0;
+}
+
 .chatlist .chat-status, .chatlist .location-secondary, .chatlist .header-secondary
 	{
 	display: -webkit-box;
@@ -96,16 +153,31 @@ Pseudo ::scrollbar-track element
 	display: flex;
 	overflow: hidden;
 }
-.chat-status {
-    font-weight: 400;
-    color: rgba(0,0,0,.6);
-    white-space: nowrap;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    text-align: left;
+
+.roomDetails {
+	font-weight: 400;
+	color: rgba(0, 0, 0, .6);
 }
+
+.chat-status {
+	font-weight: 400;
+	color: rgba(0, 0, 0, .6);
+	white-space: nowrap;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	text-align: left;
+}
+.info-icon1{
+	    z-index: 2;
+	
+}
+.info-icon2{
+	    z-index: 3;
+	
+}
+
 .chat-secondary, .header-secondary {
 	min-height: 20px;
 	-webkit-box-align: start;
@@ -116,8 +188,11 @@ Pseudo ::scrollbar-track element
 
 .chat-title.emojitext, .location-main .emojitext, .header-title .emojitext
 	{
-	text-align: left;}
-.ellipsify { position : relative;
+	text-align: left;
+}
+
+.ellipsify {
+	position: relative;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -130,35 +205,37 @@ Pseudo ::scrollbar-track element
 .chat-title, .header-title {
 	overflow: hidden;
 	font-weight: 400;
-    font-size: 16px;
-    line-height: 21px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #000;
-    -webkit-box-flex: 1;
+	font-size: 16px;
+	line-height: 21px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #000;
+	-webkit-box-flex: 1;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-ul
-{
-    list-style-type: none;
+
+ul {
+	list-style-type: none;
 	padding: 0;
 }
 
 .chat-main .chat-meta, .header-main .chat-meta {
-    line-height: 14px;
-    margin-top: 4px;
+	line-height: 14px;
+	margin-top: 4px;
 }
+
 .chat-meta {
-    color: rgba(0,0,0,.4);
-    margin-left: 6px;
-    font-size: 12px;
-}.chat-meta .chat-time {
-    text-transform: capitalize;
+	color: rgba(0, 0, 0, .4);
+	margin-left: 6px;
+	font-size: 12px;
 }
 
+.chat-meta .chat-time {
+	text-transform: capitalize;
+}
 
-.row, .chat-main, .header-main, .chat-secondary, .header-secondary,
+.chat-main, .header-main, .chat-secondary, .header-secondary,
 	.control {
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -171,7 +248,6 @@ ul
 	flex-direction: row;
 }
 
-
 .element.style {
 	z-index: 65;
 	height: 72px;
@@ -182,6 +258,33 @@ ul
 .infinite-list-animate .infinite-list-item-transition {
 	-webkit-transition: -webkit-transform 200ms ease-out;
 	transition: transform 200ms ease-out;
+}
+
+.adDetailsInfo {
+	background-color: #f7f7f7;
+}
+
+.drawer-section {
+	margin: 13px 24px 0;
+}
+
+.title {
+	font-weight: bold;
+	font-family: inherit;
+}
+
+.well {
+	background-color: #fff;
+	border-radius: 6px;
+	padding: 9px 14px 12px;
+}
+
+.title-underlined {
+	padding-bottom: 5px;
+	border-bottom: 1px solid #f2f2f2;
+	margin-bottom: 6px;
+	min-height: 18px;
+	line-height: 18px;
 }
 
 .infinite-list-item {
