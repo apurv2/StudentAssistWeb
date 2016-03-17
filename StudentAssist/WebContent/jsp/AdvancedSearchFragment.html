@@ -1,0 +1,131 @@
+<html>
+
+
+<body>
+
+				<div class="row" style="margin-left: auto;     margin-right: auto;">
+					<div class="small-6 columns">
+		
+				<label>Apartment Type: </label>
+			</div>
+						<div class="small-4 columns">
+			
+					<span uib-dropdown on-toggle="toggled(open)"> <a href
+						id="simple-dropdown" uib-dropdown-toggle>
+							{{apartmentTypeHeader}}<i class="fa fa-sort-desc"></i> </a>
+						<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+							<li ng-repeat="choice in apartmentTypes"><a
+								ng-click="apartmentType(choice)" href>{{choice}}</a></li>
+						</ul>
+					</span>
+				</div>
+				
+										<div class="small-2 columns"></div>
+				
+					
+						</div>
+
+
+					<div class="row" style="margin-left: auto;     margin-right: auto;">
+					<div class="small-6 columns">
+		
+				<label >Apartment Name:</label>
+
+					</div><div class="small-6 columns">
+					
+
+					<span uib-dropdown on-toggle="toggled(open)"> <a href
+						id="simple-dropdown" uib-dropdown-toggle>
+							{{apartmentNameHeader}}<i class="fa fa-sort-desc"></i> </a>
+					
+					
+					
+						<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+							<li ng-repeat="choice in apartmentNames"><a
+								ng-click="apartmentName(choice.apartmentName)" href>{{choice.apartmentName}}</a></li>
+						</ul>
+					</span>
+
+					</div></div>
+
+
+					<div class="row" style="margin-left: auto;     margin-right: auto;">
+					<div class="small-6 columns">
+			
+				<label>Gender:</label>
+		
+					</div><div class="small-6 columns">
+					
+					<span uib-dropdown on-toggle="toggled(open)"> <a href
+						id="simple-dropdown" uib-dropdown-toggle> {{genderHeader}}<i class="fa fa-sort-desc"></i> </a>
+						<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+							<li ng-repeat="choice in gender"><a
+								ng-click="changeGenderHeader(choice)" href>{{choice}}</a></li>
+						</ul>
+					</span>
+
+					</div></div>
+
+
+			<div class="form-group">
+				<button ng-click="searchVacancy()" class="button searchVacancy">search
+					Vacancy</button>
+
+			</div>
+
+	
+
+
+
+<div class="pane-list-body" data-list-scroll-container="true">
+
+		<ul>
+			<li ng-repeat="advertisement in advertisements">
+			
+				<div mdpagination class="apurv ripple rippleAddList"  ng-click="addClick(advertisement)"style=" height: 72px;">
+					<div class="chat">
+					
+						<div class="chat-avatar">
+							<div class=" avatar icon-user-default">
+
+								<img class="avatar-image"
+									src="http://graph.facebook.com/{{advertisement.userId}}/picture?type=normal" />
+							</div>
+						</div>
+						<div class="chat-body ">
+
+							<div class="chat-main chat-title">
+
+
+
+								<span class="emojitext ellipsify">{{advertisement.apartmentName}}</span>
+								<div class="chat-meta">
+
+									<span class="chat-time"><label>$ </label>{{advertisement.cost}}</span>
+
+								</div>
+
+							</div>
+							<div class="chat-secondary">
+								<div class="chat-status">
+
+									<span class="emojitext ellipsify">
+										{{advertisement.noOfRooms}} </span>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+</div>
+
+
+
+
+
+
+</body>

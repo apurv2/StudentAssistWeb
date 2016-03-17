@@ -309,26 +309,24 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 
 		var submitUrl = url + parameters;
 
-		// StudentAssist.submitAdd(submitUrl);
+		 StudentAssist.submitAdd(submitUrl);
 
 	}
 
 	$scope.submitClicked = function() {
 
+		
 		FB.getLoginStatus(function(response) {
 			if (response.status === 'connected') {
 
 				FB.api('/' + $scope.fbId, function(response) {
-
 					var split = response.name.split(" ");
 					var firstName, lastName;
 
 					if (split.length > 1) {
-
 						firstName = split[0];
 						lastName = split[split.length - 1];
 						$scope.postVacancy(firstName, lastName);
-
 					}
 
 				});
