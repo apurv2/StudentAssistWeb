@@ -17,6 +17,45 @@ img {
 }
 
 
+.navHeader{
+
+height:40%;
+background-image: url(http://2.bp.blogspot.com/-2RewSLZUzRg/U-9o6SD4M6I/AAAAAAAADIE/voax99AbRx0/s1600/14%2B-%2B1%2B%281%29.jpg);
+background-size: 100% 100%;
+
+
+
+}
+
+.navRow
+{
+padding: 11px 15px 5px 13px;
+
+}
+
+.headerCollapse
+{
+	
+text-decoration: none !important;
+    color: black !important;
+    
+	
+}
+
+.userName {
+		left: 20%;
+		position: fixed;
+		top: 70%;
+	
+}
+
+.headerImage {
+	border-radius: 50%;
+	overflow: hidden;
+	position: fixed;
+	top: 15%;
+	left: 20%;
+}
 
 
 
@@ -90,8 +129,16 @@ Pseudo ::scrollbar-track element
     max-height: 100%;
 }
 #sidebar {
-    overflow-y: auto;
+     overflow-y: auto;
+ }
+
+
+.sidebar2 {
+    max-height: 85%;
 }
+.sidebar2 {
+     overflow-y: auto;
+ }
 
 
 .button {
