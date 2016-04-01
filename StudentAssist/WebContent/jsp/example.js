@@ -547,7 +547,11 @@ module.config(['$routeProvider',function($routeProvider)
        				,{
        					templateUrl:'AdvancedSearchActivity.jsp',
        					controller:'advancedSearchController'
-       				}).otherwise({
+       				}).when('/PostAccommodation'
+       	       				,{
+       	       					templateUrl:'PostAccommodationActivity.jsp',
+       	       					controller:'postAccommodationController'
+       	       				}).otherwise({
        				redirectTo:'SimpleSearch'
        			})
        	}]);
