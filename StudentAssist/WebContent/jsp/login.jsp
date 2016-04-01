@@ -1,0 +1,110 @@
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+<script
+	src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+<script src="example.js"></script>
+
+<script src="constants.js"></script>
+
+<link href="//cdn.muicss.com/mui-0.4.7/css/mui.min.css" rel="stylesheet"
+	type="text/css" />
+<script src="//cdn.muicss.com/mui-0.4.7/js/mui.min.js"></script>
+
+
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="./SAstyles.css">
+
+<link rel="stylesheet" type="text/css" href="./foundation.css">
+<link rel="stylesheet" type="text/css"
+	href="../styles/circularLoader.css">
+<script src="fbscript.js"></script>
+
+
+
+<style>
+.center {
+	box-shadow: 5px 5px 8px #aaa;
+	padding: 30px 2% 30px;
+	left: 35%;
+	width: 30%;
+	position: fixed;
+	max-width: 380px;
+	border: 1px solid #dadada;
+	background-color: white;
+	top: 20%;
+	min-height: 60%;
+}
+
+.logo {
+	max-width: 30%;
+	height: auto;
+	width: auto/9;
+}
+
+.fbLogin {
+	margin-top: 10%;
+}
+.loginButton
+{
+	margin-top: 10%;
+	width:60%;
+	height:80%;
+
+}
+.loginPanel {
+	background: url('../images/wall.jpg');
+}
+</style>
+
+<body style="background-color: #f7f7f7;">
+
+
+
+	<div class="center">
+
+		<div align="middle" class="title">
+			<h3>Student Assist</h3>
+		</div>
+		<div align="middle">
+
+
+			<div id="loginLanding">
+
+				<img src="../images/ic_logo.png" class="logo"> <br />
+
+				<div align="middle" id="progressBar">
+
+					<img src="../images/anim_loader.gif"> <br />
+
+				</div>
+
+				<div  class="loginButton">
+					
+
+			<a href="#"><img src="../images/fbLogin.png" id="loginButton" onclick="login();" id="login"></a>
+
+
+				</div>
+
+			</div>
+			<div id="homeScreen" style="display:none;">
+
+				<a href="HomeScreenActivity.jsp"><img src="../images/icon_home.png" class="logo"></a>
+				<br /> <img src="../images/icon_plane.png" class="logo fbLogin">
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
