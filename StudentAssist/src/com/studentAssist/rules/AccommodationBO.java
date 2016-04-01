@@ -4,6 +4,7 @@ import com.studentAssist.classes.AccommodationAdd;
 import com.studentAssist.classes.AccommodationNotification;
 import com.studentAssist.classes.AdvancedNotifications;
 import com.studentAssist.classes.Apartments;
+import com.studentAssist.classes.GCMIds;
 import com.studentAssist.classes.SimpleNotifications;
 import com.studentAssist.classes.Users;
 import com.studentAssist.dao.StudentAssistDAO;
@@ -28,21 +29,22 @@ public class AccommodationBO {
 	}
 
 	public String createUser(String firstName, String lastName, String phoneNumber, String email, String gcmId,
-			String userId) {
+			String userId,String deviceId) {
 		Users user = new Users();
 
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setPhoneNumber(phoneNumber);
 		user.setEmail(email);
-		user.setGcmId(gcmId);
 		user.setUserId(userId);
 		user.setRegisteredDate(new Date());
+		
+		GCMIds id = new GCMIds(gcmId, deviceId, new Date());
 
 		Session session = this.sessionFactory.openSession();
 
 		StudentAssistDAO studentAssist = new StudentAssistDAO();
-		return studentAssist.createUser(user, session);
+		return studentAssist.createUser(user, session,id);
 	}
 
 	public String createAccommodationAddFromFacebook(String userId, String apartmentName, String noOfRooms,
@@ -55,7 +57,6 @@ public class AccommodationBO {
 		user.setLastName(lastName);
 		user.setPhoneNumber("Fbuser");
 		user.setEmail("Fbuser");
-		user.setGcmId("Fbuser");
 		user.setUserId(userId);
 
 		user.setRegisteredDate(new Date());

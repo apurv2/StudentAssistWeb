@@ -1,11 +1,22 @@
 package com.studentAssist.rest;
 
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.MulticastResult;
+import com.google.android.gcm.server.Sender;
+import com.studentAssist.GCM.GCMNotificationData;
+import com.studentAssist.classes.AccommodationNotification;
+import com.studentAssist.classes.ApartmentDetails;
 import com.studentAssist.response.RAccommodationAdd;
 import com.studentAssist.response.RAccommodationNotification;
 import com.studentAssist.response.RApartmentNames;
 import com.studentAssist.rules.AccommodationBO;
+
+import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -24,7 +35,7 @@ public class Accommodation {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 
 		AccommodationBO bo = new AccommodationBO();
-		return bo.createUser(firstName, lastName, phoneNumber, emailId, gcmId, userId);
+		return bo.createUser(firstName, lastName, phoneNumber, emailId, gcmId, userId,"12345");
 	}
 
 	@GET
@@ -32,12 +43,13 @@ public class Accommodation {
 	public String createAccommodationAddFromFacebook(@QueryParam("apartmentName") String apartmentName,
 			@QueryParam("noOfRooms") String noOfRooms, @QueryParam("vacancies") String vacancies,
 			@QueryParam("cost") String cost, @QueryParam("gender") String gender, @QueryParam("fbId") String fbId,
-			@QueryParam("notes") String notes,@QueryParam("firstName") String firstName,@QueryParam("lastName") String lastName, @Context HttpServletResponse response) {
+			@QueryParam("notes") String notes, @QueryParam("firstName") String firstName,
+			@QueryParam("lastName") String lastName, @Context HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 
 		AccommodationBO bo = new AccommodationBO();
 		return bo.createAccommodationAddFromFacebook(fbId, apartmentName, noOfRooms, vacancies, cost, gender, fbId,
-				notes,firstName,lastName);
+				notes, firstName, lastName);
 	}
 
 	@GET
@@ -176,8 +188,63 @@ public class Accommodation {
 	@GET
 	@Path("/test")
 	public String test() {
+		
+		AccommodationBO bo = new AccommodationBO();
+		
+		//ApartmentDetails details = new ApartmentDetails();
+		//details.addAptsToNewDb();
+		
+		//return "success";
 
-		return "hwllo world";
+		return bo.createUser("Apurv", "Kamalapuri", "", "", "6789", "1118294135","56789");
+			//return	createBuilder();
+
 
 	}
+
+	private String sendMessage(Message.Builder builder, List<String> gcmIds) throws IOException {
+		String API_KEY = "AIzaSyBN22-yHrj9iZSISNIiG0VdJaJghLtmjCg";
+		Sender sender = new Sender(API_KEY);
+
+		Message message = builder.build();
+		
+			
+		
+		MulticastResult result = sender.send(message, gcmIds, 1);
+
+		System.out.println("result = " + result);
+			return result+"";
+	}
+	
+
+	private String createBuilder() {
+		Message.Builder builder = new Message.Builder();
+
+		String collpaseKey = "gcm_message";
+		builder.collapseKey(collpaseKey);
+		builder.timeToLive(30);
+		builder.delayWhileIdle(true);
+
+		builder.addData("hello", "world");
+
+		List<String> gcmIds = new ArrayList();
+		gcmIds.add(
+				"cHeqJP4rZGI:APA91bET1vrf0wjNQsNkfyOM7ePJNLwhFeG92t6m_x4pf5fHgYtEVEbfc5b8ZZ5dv1KLykhaYD74-2zp_38c0aXgXacbCap5bKKGi3w8wQzY4CojFueF-ZJZ6It1QUlw5uvNKq0UyQnZ");
+
+		try {
+			return sendMessage(builder, gcmIds);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "exception in catch";
+		}
+	}
+
 }
+
+
+
+
+
+
+
+
