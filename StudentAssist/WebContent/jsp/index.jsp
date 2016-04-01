@@ -1,6 +1,11 @@
 <html>
 
 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
 <script
@@ -8,181 +13,313 @@
 <script
 	src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
 <script src="example.js"></script>
-
 <script src="constants.js"></script>
-<script src="fbscript.js"></script>
-
 
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
 
+<link rel="stylesheet" type="text/css" href="./SAstyles.css">
 
-<body>
+<link rel="stylesheet" type="text/css" href="./foundation.css">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css">
+
+
+<!-- jquery & iScroll -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
+<!-- drawer.js -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/js/drawer.min.js"></script>
+
+
+<style>
+.box {
+	box-shadow: 5px 5px 8px #aaa;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	padding: 30px 2% 30px;
+	background-color: white;
+}
+
+.logo {
+	max-width: 30%;
+	height: auto;
+	width: auto/9;
+}
+
+.fbLogin {
+	margin-top: 10%;
+}
+
+.loginButton {
+	margin-top: 10%;
+	width: 60%;
+	height: 80%;
+}
+
+.loginPanel {
+	background: url('../images/wall.jpg');
+}
+</style>
+
+
+<body style="background-color: #f7f7f7; top: 2%;">
+
 
 	<!-- ApartmentType -->
 
 	<div ng-app="ui.bootstrap.demo"
 		ng-controller="postAccommodationController" ng-init="init()">
 
-		<form name="newVacancy" class="form-horizontal">
-			<fieldset>
+		<form name="newVacancy">
+			<div class="row">
+				<div class="small-6 columns">
 
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="selectbasic">Apartment
-						Type:</label>
-					<div class="col-md-4">
+					<div class="box">
 
-						<span uib-dropdown on-toggle="toggled(open)"> <a href
-							id="simple-dropdown" uib-dropdown-toggle>
-								{{apartmentTypeHeader}} </a>
-							<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-								<li ng-repeat="choice in apartmentTypes"><a
-									ng-click="apartmentType(choice)" href>{{choice}}</a></li>
-							</ul>
-						</span>
+						<div class="title-underlined ">
+							<h4>Vacancy Information</h4>
+						</div>
 
-
-					</div>
-				</div>
-
-				<!-- ApartmentName -->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="selectbasic">ApartmentName:</label>
-					<div class="col-md-4">
-						<span uib-dropdown on-toggle="toggled(open)"> <a href
-							id="simple-dropdown" uib-dropdown-toggle>
-								{{apartmentNameHeader}} </a>
-							<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-								<li ng-repeat="choice in apartmentNames"><a
-									ng-click="apartmentName(choice.apartmentName)" href>{{choice.apartmentName}}</a>
-								</li>
-							</ul>
-						</span>
-
-					</div>
-				</div>
-
-				<!-- NoOfRooms -->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="selectbasic">No.
-						of Rooms:</label>
-					<div class="col-md-4">
-						<span uib-dropdown on-toggle="toggled(open)"> <a href
-							id="simple-dropdown" uib-dropdown-toggle> {{noOfRoomsHeader}}
-						</a>
-							<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-								<li ng-repeat="choice in noOfRooms"><a
-									ng-click="changeNoOfRoomsHeader(choice)" href>{{choice}}</a></li>
-							</ul>
-						</span>
-
-					</div>
-				</div>
+						<div class="row">
+							<div class="small-6 columns">
+								<label>Apartment Type:</label>
+							</div>
+							<div class="small-6 columns">
+								<span uib-dropdown on-toggle="toggled(open)"> <a href
+									id="simple-dropdown" uib-dropdown-toggle>
+										{{apartmentTypeHeader}} <i class="fa fa-sort-desc"></i>
+								</a>
+									<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+										<li ng-repeat="choice in apartmentTypes"><a
+											ng-click="apartmentType(choice)" href>{{choice}}</a></li>
+									</ul>
+								</span>
+							</div>
+						</div>
 
 
-				<!-- Vacancies -->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="selectbasic">vacancies:</label>
-					<div class="col-md-4">
-						<span uib-dropdown on-toggle="toggled(open)"> <a href
-							id="simple-dropdown" uib-dropdown-toggle> {{vacanciesHeader}}
-						</a>
-							<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-								<li ng-repeat="choice in vacancies"><a
-									ng-click="changeVacanciesHeader(choice)" href>{{choice}}</a></li>
-							</ul>
-						</span>
+						<!-- ApartmentName -->
 
-					</div>
-				</div>
+						<div class="row">
+							<div class="small-6 columns">
+
+								<label>ApartmentName:</label>
+
+							</div>
+							<div class="small-6 columns">
+								<span uib-dropdown on-toggle="toggled(open)"> <a href
+									id="simple-dropdown" uib-dropdown-toggle>
+										{{apartmentNameHeader}} <i class="fa fa-sort-desc"></i>
+								</a>
+									<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+										<li ng-repeat="choice in apartmentNames"><a
+											ng-click="apartmentName(choice.apartmentName)" href>{{choice.apartmentName}}</a>
+										</li>
+									</ul>
+								</span>
+							</div>
+						</div>
+
+						<!-- NoOfRooms -->
+						<div class="row">
+							<div class="small-6 columns">
 
 
-				<!-- Gender -->
+								<label>No. of Rooms:</label>
+							</div>
+							<div class="small-6 columns">
 
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="selectbasic">gender:</label>
-					<div class="col-md-4">
-						<span uib-dropdown on-toggle="toggled(open)"> <a href
-							id="simple-dropdown" uib-dropdown-toggle> {{genderHeader}} </a>
-							<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
-								<li ng-repeat="choice in gender"><a
-									ng-click="changeGenderHeader(choice)" href>{{choice}}</a></li>
-							</ul>
-						</span>
+								<span uib-dropdown on-toggle="toggled(open)"> <a href
+									id="simple-dropdown" uib-dropdown-toggle>
+										{{noOfRoomsHeader}} <i class="fa fa-sort-desc"></i>
+								</a>
+									<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+										<li ng-repeat="choice in noOfRooms"><a
+											ng-click="changeNoOfRoomsHeader(choice)" href>{{choice}}</a></li>
+									</ul>
+								</span>
+							</div>
+						</div>
 
-					</div>
-				</div>
 
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="textinput">Cost/Month</label>
-					<div class="col-md-4">
-						<input id="textinput" name="cost" ng-model="cost" type="number"
-							placeholder="cost/month" class="form-control input-md" required>
-						<span style="color: red"
-							ng-show="newVacancy.cost.$dirty && newVacancy.cost.$invalid">
-							<span>Invalid data</span> <span
-							ng-show="newVacancy.cost.$error.required">cost per month
-								is required</span>
-						</span>
-					</div>
-				</div>
+						<!-- Vacancies -->
 
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="textinput">Facebook
-						Id</label>
-					<div class="col-md-4">
-						<input id="textinput" name="fbId" ng-model="fbId" type="number"
-							placeholder="Facebook Id" class="form-control input-md" required>
-						<span style="color: red"
-							ng-show="newVacancy.fbId.$dirty && newVacancy.fbId.$invalid">
-							<span>Invalid data</span> <span
-							ng-show="newVacancy.fbId.$error.required">facebook Id is
-								required</span>
-						</span>
-					</div>
-				</div>
 
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="textinput">Notes/Comments</label>
-					<div class="col-md-4">
-						<textarea ng-pattern="/^[a-zA-Z0-9 .\n-]*$/" id="textinput"
-							name="notes" type="text" placeholder="notes/comments"
-							class="form-control input-md" ng-model="notes" required> 
- 						 </textarea>
+						<div class="row">
+							<div class="small-6 columns">
 
-						<span style="color: red"
-							ng-show="newVacancy.notes.$dirty && newVacancy.notes.$invalid">
-							<span ng-show="newVacancy.notes.$error.required">notes/comments
-								are required</span> <span ng-show="newVacancy.notes.$error.pattern">only
-								numbers/letters allowed</span>
-						</span>
-					</div>
+								<label>vacancies:</label>
 
-				</div>
+							</div>
+							<div class="small-6 columns">
 
-				<!-- Button -->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="singlebutton"></label>
-					<div class="col-md-4">
+								<span uib-dropdown on-toggle="toggled(open)"> <a href
+									id="simple-dropdown" uib-dropdown-toggle>
+										{{vacanciesHeader}} <i class="fa fa-sort-desc"></i>
+								</a>
+									<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+										<li ng-repeat="choice in vacancies"><a
+											ng-click="changeVacanciesHeader(choice)" href>{{choice}}</a></li>
+									</ul>
+								</span>
+
+							</div>
+						</div>
+
+						<!-- Gender -->
+
+						<div class="row">
+							<div class="small-6 columns">
+
+
+								<label>gender:</label>
+							</div>
+							<div class="small-6 columns">
+
+
+								<span uib-dropdown on-toggle="toggled(open)"> <a href
+									id="simple-dropdown" uib-dropdown-toggle> {{genderHeader}}
+										<i class="fa fa-sort-desc"></i>
+								</a>
+									<ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+										<li ng-repeat="choice in gender"><a
+											ng-click="changeGenderHeader(choice)" href>{{choice}}</a></li>
+									</ul>
+								</span>
+							</div>
+						</div>
+
+						<!-- Text input-->
+
+						<div class="row">
+							<div class="small-6 columns">
+
+
+
+								<label>Cost/Month</label>
+							</div>
+							<div class="small-6 columns">
+
+
+
+								<input id="textinput" name="cost" ng-model="cost" type="number"
+									placeholder="cost/month" class="form-control input-md" required>
+								<span style="color: red"
+									ng-show="newVacancy.cost.$dirty && newVacancy.cost.$invalid">
+									<span>Invalid data</span> <span
+									ng-show="newVacancy.cost.$error.required">cost per month
+										is required</span>
+								</span>
+							</div>
+						</div>
+
+						<!-- Text input-->
+						<div class="row">
+							<div class="small-6 columns">
+
+
+
+								<label>Facebook Id </label>
+
+							</div>
+							<div class="small-6 columns">
+
+								<input id="textinput" name="fbId" ng-model="fbId" type="number"
+									placeholder="Facebook Id" 
+									required> <span style="color: red"
+									ng-show="newVacancy.fbId.$dirty && newVacancy.fbId.$invalid">
+									<span>Invalid data</span> <span
+									ng-show="newVacancy.fbId.$error.required">facebook Id is
+										required</span>
+								</span>
+							</div>
+						</div>
+						<!-- Text input-->
+
+						<div class="row">
+							<div class="small-6 columns">
+
+
+
+
+
+								<label>Notes/Comments</label>
+
+							</div>
+							<div class="small-6 columns">
+
+								<textarea ng-pattern="/^[a-zA-Z0-9 .\n-]*$/" id="textinput"
+									name="notes" type="text" placeholder="notes/comments"
+									class="form-control input-md" ng-model="notes" required>
+              					</textarea>
+
+								<span style="color: red"
+									ng-show="newVacancy.notes.$dirty && newVacancy.notes.$invalid">
+									<span ng-show="newVacancy.notes.$error.required">notes/comments
+										are required</span> <span ng-show="newVacancy.notes.$error.pattern">only
+										numbers/letters allowed</span>
+								</span>
+
+							</div>
+						</div>
+						<!-- Button -->
+
+						<label></label>
+
 						<button class="btn btn-primary" ng-disabled="newVacancy.$invalid"
 							ng-click="submitClicked()">Submit</button>
 					</div>
+
 				</div>
 
-			</fieldset>
-		</form>
+				<div class="small-6 columns">
 
+
+					<div class="box">
+
+						<div class="title-underlined ">
+							<h4>Contact Information</h4>
+						</div>
+						<div class="row">
+							<div class="small-6 columns">
+								<label>phone Number:</label>
+							</div>
+
+							<div class="small-6 columns">
+								<input type="text">
+							</div>
+						</div>
+						<div class="row">
+
+							<div class="small-6 columns">
+								<label>email Address:</label>
+							</div>
+
+							<div class="small-6 columns">
+								<input type="text">
+							</div>
+
+						</div>
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+
+
+
+
+		</form>
 	</div>
 
-<div id="apurv">
 
-
-</div>
-	
 
 </body>
 

@@ -1,7 +1,7 @@
 
 
 
-angular.module('ui.bootstrap.demo', [ 'ngAnimate', 'ui.bootstrap' ]);
+angular.module('ui.bootstrap.demo', [ 'ngAnimate', 'ui.bootstrap','ngRoute' ]);
 
 var module = angular.module('ui.bootstrap.demo');
 
@@ -120,7 +120,7 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 	$scope.gender = gender;
 	$scope.advertisements = [];
 
-	$scope.adDetails_apartmentName = "appugadu";
+	$scope.adDetails_apartmentName = "ApartmentName";
 	
 	
 	$scope.fbCallBack = function()
@@ -130,6 +130,8 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 		console.log("aptName=="+	$scope.adDetails_apartmentName);
 		
 	}
+	
+	
 	
 	
 	$scope.apartmentType = function(apartmentType) {
@@ -355,6 +357,14 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 	// initilize leftSpinner
 	$scope.leftSpinnerValues = leftSpinnerValues;
 
+	
+	 $scope.isSidenavOpen = false;
+	    
+	  $scope.openLeftMenu = function() {
+	    $mdSidenav('left').toggle();
+	  };
+	    
+	
 	$scope.getSimpleSearchAds = function(leftSpinner, rightSpinner) {
 
 		var queryparam = "";
@@ -526,3 +536,23 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 	$scope.appendToEl = angular.element(document
 			.querySelector('#dropdown-long-content'));
 });
+
+
+module.config(['$routeProvider',function($routeProvider)
+       		{
+       			$routeProvider.when('/SimpleSearch',{
+       				templateUrl:'SimpleSearchActivity.jsp',
+       				controller :'simpleSearchController'
+       			}).when('/AdvancedSearch'
+       				,{
+       					templateUrl:'AdvancedSearchActivity.jsp',
+       					controller:'advancedSearchController'
+       				}).otherwise({
+       				redirectTo:'SimpleSearch'
+       			})
+       	}]);
+
+
+
+
+

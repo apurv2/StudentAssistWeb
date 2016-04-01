@@ -1,4 +1,4 @@
-div.apurv:hover {
+.apurv:hover {
 	background: #FAFAFA;
 }
 
@@ -27,9 +27,16 @@ background-size: 100% 100%;
 
 }
 
+.istyle
+{
+	height:inherit;
+float: none;
+transition: initial;
+}
+
 .navRow
 {
-padding: 11px 15px 5px 13px;
+padding: 8px 15px 8px 13px;
 
 }
 
