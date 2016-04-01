@@ -46,15 +46,22 @@ import com.studentAssist.classes.AccommodationAdd;
 import com.studentAssist.classes.AccommodationNotification;
 import com.studentAssist.classes.Airport;
 import com.studentAssist.classes.Apartments;
+import com.studentAssist.classes.GCMIds;
 import com.studentAssist.classes.Users;
 import com.studentAssist.response.RAccommodationAdd;
 
 public class StudentAssistDAO {
-	public String createUser(Users user, Session session) {
+	public String createUser(Users user, Session session, GCMIds id) {
 		try {
 			try {
 				session.beginTransaction();
 				session.saveOrUpdate((Object) user);
+				
+				// adding gcm Ids to User and vice versa
+				this.addGcmIdToUser(user, id);
+				session.saveOrUpdate((Object)id);
+				
+				
 				session.getTransaction().commit();
 			} catch (Exception e) {
 				StringWriter errors = new StringWriter();
@@ -474,6 +481,13 @@ public class StudentAssistDAO {
 			}
 		}
 		return services;
+	}
+
+	private void addGcmIdToUser(Users user, GCMIds gcmId) {
+
+		user.getGcmIds().add(gcmId);
+		gcmId.setUser(user);
+
 	}
 
 	private void addAccommodationToUser(Users user, AccommodationAdd add) {
