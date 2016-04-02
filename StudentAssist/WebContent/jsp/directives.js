@@ -1,9 +1,9 @@
 
 
 
-angular.module('ui.bootstrap.demo', [ 'ngAnimate', 'ui.bootstrap','ngRoute' ]);
+angular.module('studentAssistWeb', [ 'ngAnimate', 'ui.bootstrap','ngRoute' ]);
 
-var module = angular.module('ui.bootstrap.demo');
+var module = angular.module('studentAssistWeb');
 
 
 

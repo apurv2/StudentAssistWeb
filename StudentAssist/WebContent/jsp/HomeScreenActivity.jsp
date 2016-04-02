@@ -16,7 +16,7 @@
 
 
 <script async src="fbscript.js"></script>
-<script src="example.js"></script>
+<script src="directives.js"></script>
 <script src="constants.js"></script>
 
 <!-- drawer.css -->
@@ -37,7 +37,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
 
-<div ng-app="ui.bootstrap.demo">
+<div ng-app="studentAssistWeb">
 
   <body class="drawer drawer--left">
 
@@ -59,24 +59,24 @@
         <ul id="staggeredList">
     
 	<li class="istyle">    
-     <a  class="headerCollapse" style="padding:inherit;"href="#SimpleSearch">  <div  class="  navRow"> 
+     <a  class="headerCollapse ripple rippleAddList" style="padding:inherit;"href="#SimpleSearch">  <div  class="  navRow"> 
       <i class="fa fa-search istyle"></i> &nbsp&nbsp&nbsp&nbsp&nbsp&nbspSimple Search</div></a></li>
     
     <li class="istyle">
-    <a  class="headerCollapse" style="padding:inherit;"href="#AdvancedSearch"> <div class=" navRow">  
+    <a  class="headerCollapse ripple rippleAddList" style="padding:inherit;"href="#AdvancedSearch"> <div class=" navRow">  
     <i class="fa fa-search-plus istyle"></i> &nbsp&nbsp&nbsp&nbsp&nbspAdvanced Search</div></a></li>
      
      
      <li class="istyle">
-    <a  class="headerCollapse" style="padding:inherit;" href="#PostAccommodation"> <div class=" navRow">  
+    <a  class="headerCollapse ripple rippleAddList" style="padding:inherit;" href="#PostAccommodation"> <div class=" navRow">  
     <i class="fa fa-paper-plane istyle"></i> &nbsp&nbsp&nbsp&nbsp&nbspPost Accommodation</div></a></li>
      
      <li class="istyle">
-    <a  class="headerCollapse" style="padding:inherit;" href="#AdvancedSearch"> <div class=" navRow">  
+    <a  class="headerCollapse ripple rippleAddList" style="padding:inherit;" href="#AdvancedSearch"> <div class=" navRow">  
     <i class="fa fa-user istyle"></i> &nbsp&nbsp&nbsp&nbsp&nbspYour Posts</div></a></li>
     
     <li class="istyle">
-    <a  class="headerCollapse" style="padding:inherit;" href="#AdvancedSearch"> <div class=" navRow">  
+    <a  class="headerCollapse ripple rippleAddList" style="padding:inherit;" href="#AdvancedSearch"> <div class=" navRow">  
     <i class="fa fa-cogs istyle"></i> &nbsp&nbsp&nbsp&nbsp&nbspSettings</div></a></li>
     
     

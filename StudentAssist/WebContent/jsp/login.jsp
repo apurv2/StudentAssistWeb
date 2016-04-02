@@ -9,7 +9,7 @@
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
 <script
 	src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
-<script src="example.js"></script>
+<script src="directives.js"></script>
 
 <script src="constants.js"></script>
 
@@ -25,7 +25,7 @@
 <link rel="stylesheet" type="text/css" href="./SAstyles.css">
 
 <link rel="stylesheet" type="text/css" href="./foundation.css">
-<link rel="stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css" title="A"
 	href="../styles/circularLoader.css">
 <script src="fbscript.js"></script>
 
@@ -33,7 +33,7 @@
 
 <style>
 .center {
-	box-shadow: 5px 5px 8px #aaa;
+	 box-shadow: 5px 5px 8px #aaa;
 	padding: 30px 2% 30px;
 	left: 35%;
 	width: 30%;
@@ -42,7 +42,7 @@
 	border: 1px solid #dadada;
 	background-color: white;
 	top: 20%;
-	min-height: 60%;
+	min-height: 60%; 
 }
 
 .logo {
@@ -54,15 +54,20 @@
 .fbLogin {
 	margin-top: 10%;
 }
-.loginButton
-{
-	margin-top: 10%;
-	width:60%;
-	height:80%;
 
+.loginButton {
+	margin-top: 10%;
+	width: 60%;
+	height: 80%;
+	display:none;
 }
+
 .loginPanel {
 	background: url('../images/wall.jpg');
+}
+
+.hidePageLoad
+{    display: none;
 }
 </style>
 
@@ -88,23 +93,30 @@
 
 				</div>
 
-				<div  class="loginButton">
-					
+				<div class="loginButton">
 
-			<a href="#"><img src="../images/fbLogin.png" id="loginButton" onclick="login();" id="login"></a>
+
+					<a href="#"><img src="../images/fbLogin.png" id="login"></a>
 
 
 				</div>
 
 			</div>
-			<div id="homeScreen" style="display:none;">
+			<div id="homeScreen" class="hidePageLoad">
 
-				<a href="HomeScreenActivity.jsp"><img src="../images/icon_home.png" class="logo"></a>
-				<br /> <img src="../images/icon_plane.png" class="logo fbLogin">
+				<a href="#"><img
+					src="../images/icon_home.png" class="logo homeScreenIntent"></a> <br /> <img
+					src="../images/icon_plane.png" class="logo fbLogin ">
 
 			</div>
 		</div>
 	</div>
 
 
+
 </body>
+
+<div id="homeScreenActivity" class="hidePageLoad">
+			<%@include file="HomeScreenActivity.jsp"%>
+
+</div>
