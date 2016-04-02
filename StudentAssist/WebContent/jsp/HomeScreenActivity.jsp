@@ -36,6 +36,9 @@
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
+<div class="panel panel-default" style="background:#B4CDCD; overflow-y:hidden !important;height:100%;" >
+ 
+ <div class="panel-body" style="margin-bottom:100px;margin-top:10px">
 
 <div ng-app="studentAssistWeb">
 
@@ -145,6 +148,6 @@
     });
 
   </script>
-
+</div>
 
 </div>
