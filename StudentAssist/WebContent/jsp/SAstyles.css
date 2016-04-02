@@ -6,6 +6,43 @@
 	padding: 11px 15px 0 13px;
 }
 
+.row
+{
+margin-bottom:inherit !important;	
+}
+
+label
+{
+	
+	color:black; !important;
+}
+
+.customDropdown
+{
+	 position: absolute;
+   	 z-index: 999;
+ 	 display: none; 	
+ 	
+}
+
+ .btn-flat
+ {
+ 	text-transform: initial !important;
+ 		text-decoration: none !important;
+ 	
+ 
+ }
+
+
+.subscribePopupButtons
+{
+	text-decoration: none !important;
+	overflow: hidden;
+	padding: initial !important;
+	
+}
+
+
 img {
 	margin: 0;
 	padding: 0;
@@ -170,7 +207,6 @@ Pseudo ::scrollbar-track element
 
 .chat {
 	position: relative;
-	cursor: pointer;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;

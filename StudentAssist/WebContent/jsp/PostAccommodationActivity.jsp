@@ -1,38 +1,6 @@
 <html>
 
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
-<script
-	src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
-<script src="example.js"></script>
-<script src="constants.js"></script>
-
-<link
-	href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<link rel="stylesheet" type="text/css" href="./SAstyles.css">
-
-<link rel="stylesheet" type="text/css" href="./foundation.css">
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css">
-
-
-<!-- jquery & iScroll -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
-<!-- drawer.js -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/js/drawer.min.js"></script>
 
 
 <style>

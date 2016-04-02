@@ -1,146 +1,223 @@
 <html>
 
+  <script>
+    $(document).ready(function() {
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      $('.subscribeButton').click(function() {
 
-<body>
+        $(".customDropdown").animate({
+          height: 'toggle'
+        }, 350);
 
+      });
+    });
 
-	<div class="drawer-section well ">
+    $(document).mouseup(function(e) {
+      var container = $(".customDropdown");
+      var container2 = $(".subscribeButton");
 
-		<div class="row" align="middle">
-			<h4>
-				<label><img class="avatar-image"
-					src="http://graph.facebook.com/{{adDetails_userId}}/picture?type=normal" /> 
-					<label style="padding-left: 15;">{{adDetails_name}}</label></label> 
-					
-					<!-- <a class="waves-effect waves-light btn"><img src="../images/subscribe.png">Subscribe</a> -->
-			</h4>
-								  <a class="waves-effect  btn-flat"><img src="../images/subscribe.png"> Subscribe</a>
-			
-		</div>
+      
+      if (!container.is(e.target) // if the target of the click isn't the container...
+        && container.has(e.target).length === 0 && !container2.is(e.target )) // ... nor a descendant of the container
+      {
 
+        container.animate({
+          height: 'hide'
+        }, 350);
 
+      }
+    });
 
-	</div>
+  </script>
 
-
-
-	<div class="drawer-section well ">
-
-		<div align="middle" class="title-underlined title">
-			<h2>{{adDetails_apartmentName}}</h2>  
-			
-		</div>
-		<div class="pane-list-body" data-list-scroll-container="true">
-			<div class="chat" align="middle">
+  <body>
 
 
-				<div class="chat-avatar info-icon1 ">
+    <div class="drawer-section well ">
 
-					<div class=" avatar icon-user-default">
+      <div class="row">
 
-						<i style="font-size: 250%;" class="fa fa-male"></i>
-					</div>
-				</div>
-				<div class="apartmentDetails info-icon2">
+        <div class="columns large-4" style="visibility: hidden;">a</div>
+        <div class="columns large-4">
+          <h4>
+					<label><img class="avatar-image"
+						src="http://graph.facebook.com/{{adDetails_userId}}/picture?type=normal" />
+						<label style="padding-left: 15;">{{adDetails_name}}</label></label>
 
-					<div class="chat-main chat-title">
+				</h4>
+
+        </div>
+        <div class="columns large-4">
+          <a class="waves-effect  btn-flat subscribeButton"><img src="../images/subscribe.png"> Subscribe</a>
+
+          <div class="customDropdown drawer-section well ">
+
+
+            <div class="row">
+              <div class="columns small-12">
+                <label>Do you want to subscribe for push notifications when someone posts a vacancy in this search criteria?</label>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="columns small-5">
+                <label>apartmentType:</label>
+
+              </div>
+
+              <div class="columns small-5">
+                <label>On-Campus</label>
+
+              </div>
+              <div class="columns small-2"></div>
+
+            </div>
+
+            <div class="row">
+              <div class="columns small-6" style="visibility: hidden;">a</div>
+              <div class="columns small-3 subscribePopupButtons">
+                <a class="waves-effect  btn-flat  subscribePopupButtons" >No</a>
+              </div>
+              <div class="columns small-3 subscribePopupButtons">
+                <a class="waves-effect  btn-flat  subscribePopupButtons">Yes</a>
+
+              </div>
+
+
+            </div>
 
 
 
-						<span class="emojitext ellipsify"> {{adDetails_vacancies }}
+
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <div class="drawer-section well ">
+
+      <div align="middle" class="title-underlined title">
+        <h2>{{adDetails_apartmentName}}</h2>
+
+      </div>
+      <div class="pane-list-body" data-list-scroll-container="true">
+        <div class="chat" align="middle">
+
+
+          <div class="chat-avatar info-icon1 ">
+
+            <div class=" avatar icon-user-default">
+
+              <i style="font-size: 250%;" class="fa fa-male"></i>
+            </div>
+          </div>
+          <div class="apartmentDetails info-icon2">
+
+            <div class="chat-main chat-title">
+
+
+
+              <span class="emojitext ellipsify"> {{adDetails_vacancies }}
 							{{ adDetails_gender }} Roommate(s)</span>
 
 
-					</div>
-					<div class="roomDetails">
+            </div>
+            <div class="roomDetails">
 
-						<span class="emojitext ellipsify">{{adDetails_noOfRooms}} </span>
-
-
-					</div>
-				</div>
-				<div class="chat-avatar info-icon1" style="visibility: hidden">
-					<div class=" avatar icon-user-default">
-
-						<i style="font-size: 250%;" class="fa fa-male"></i>
-					</div>
-				</div>
-			</div>
-			<br />
-
-			<div class="chat" align="middle">
+              <span class="emojitext ellipsify">{{adDetails_noOfRooms}} </span>
 
 
-				<div class="chat-avatar info-icon1 ">
-					<div class=" avatar icon-user-default">
+            </div>
+          </div>
+          <div class="chat-avatar info-icon1" style="visibility: hidden">
+            <div class=" avatar icon-user-default">
 
-						<i style="font-size: 250%;" class="fa fa-usd"></i>
-					</div>
-				</div>
-				<div class="apartmentDetails info-icon2">
+              <i style="font-size: 250%;" class="fa fa-male"></i>
+            </div>
+          </div>
+        </div>
+        <br />
 
-					<div class="chat-main chat-title">
+        <div class="chat" align="middle">
+
+
+          <div class="chat-avatar info-icon1 ">
+            <div class=" avatar icon-user-default">
+
+              <i style="font-size: 250%;" class="fa fa-usd"></i>
+            </div>
+          </div>
+          <div class="apartmentDetails info-icon2">
+
+            <div class="chat-main chat-title">
 
 
 
-						<span class="emojitext ellipsify">{{adDetails_cost}} per
+              <span class="emojitext ellipsify">{{adDetails_cost}} per
 							month</span>
 
 
-					</div>
+            </div>
 
-				</div>
-				<div class="chat-avatar info-icon1" style="visibility: hidden">
-					<div class=" avatar icon-user-default">
+          </div>
+          <div class="chat-avatar info-icon1" style="visibility: hidden">
+            <div class=" avatar icon-user-default">
 
-						<img class="avatar-image" src="../jsp/icons/man.png" />
-					</div>
-				</div>
-			</div>
-
-
+              <img class="avatar-image" src="../jsp/icons/man.png" />
+            </div>
+          </div>
+        </div>
 
 
-		</div>
 
 
-	</div>
+      </div>
 
 
-	<div class="drawer-section well ">
-
-		<div align="middle" class="title-underlined title">
-			<h2>Contact Method</h2>
-		</div>
-		<div class="pane-list-body" align="middle"
-			data-list-scroll-container="true">
+    </div>
 
 
-			<img class="avatar-image" src="../jsp/icons/fbMessenger.png" />
+    <div class="drawer-section well ">
 
-		</div>
-
-
-	</div>
-
-
-	<div class="drawer-section well ">
-
-		<div align="middle" class="title-underlined title">
-			<h2>Notes</h2>
-		</div>
-		<div class="pane-list-body" align="middle"
-			data-list-scroll-container="true">
+      <div align="middle" class="title-underlined title">
+        <h2>Contact Method</h2>
+      </div>
+      <div class="pane-list-body" align="middle" data-list-scroll-container="true">
 
 
-			<label>{{adDetails_notes}}</label>
+        <img class="avatar-image" src="../jsp/icons/fbMessenger.png" />
 
-		</div>
+      </div>
 
 
-	</div>
+    </div>
+
+
+    <div class="drawer-section well ">
+
+      <div align="middle" class="title-underlined title">
+        <h2>Notes</h2>
+      </div>
+      <div class="pane-list-body" align="middle" data-list-scroll-container="true">
+
+
+        <label>{{adDetails_notes}}</label>
+
+      </div>
+
+
+    </div>
 
 
 
@@ -152,4 +229,4 @@
 
 
 
-</body>
+  </body>
