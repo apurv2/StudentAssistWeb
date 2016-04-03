@@ -123,6 +123,16 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 	$scope.adDetails_apartmentName = "ApartmentName";
 	
 	
+	$scope.subscribeNotifications = function()
+	{
+		
+		console.log("advanced subscription came here");
+		
+		
+	}
+	
+	
+	
 	$scope.fbCallBack = function()
 	{
 		
@@ -354,6 +364,17 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 	$scope.vacancies = vacancies;
 	$scope.gender = gender;
 
+	
+	$scope.subscribeNotifications = function()
+	{
+		
+		console.log("simple subscription came here");
+		
+		var subscribeNotificationsUrl = "?notificationType=0&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
+		+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader);
+		
+	}
+	
 	// initilize leftSpinner
 	$scope.leftSpinnerValues = leftSpinnerValues;
 
