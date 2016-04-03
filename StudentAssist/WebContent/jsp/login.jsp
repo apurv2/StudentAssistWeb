@@ -1,51 +1,61 @@
- 
- <!-- font awesome( CDN icons) and foundation( CSS library) import -->
+
+		<!-- font awesome and foundation-->
 <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="./foundation.css">
 
-
-
-
-  <!-- angular related imports -->
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9//angular-route.js"></script>
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
-
-
- <!-- bootstrap import -->
- <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
- 
-
-	<!-- jquery imports -->
+  <!-- jquery --> 
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 
-<script
-	src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+	<!-- angular -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+<script	src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9//angular-route.js"></script>
+
+
+
+   <!-- user imports -->
 <script src="directives.js"></script>
-
 <script src="constants.js"></script>
-
-<link href="//cdn.muicss.com/mui-0.4.7/css/mui.min.css" rel="stylesheet"
-	type="text/css" />
-<script src="//cdn.muicss.com/mui-0.4.7/js/mui.min.js"></script>
-
-
-<link
-	href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-	rel="stylesheet">
-
 <link rel="stylesheet" type="text/css" href="./SAstyles.css">
-
-<link rel="stylesheet" type="text/css" href="./foundation.css">
-<link rel="stylesheet" type="text/css" title="A"
-	href="../styles/circularLoader.css">
 <script src="fbscript.js"></script>
 
 
- <script type="text/javascript" src="js/sw.js"></script>
 
+
+   <!-- material UI --> 
+<link href="//cdn.muicss.com/mui-0.4.7/css/mui.min.css" rel="stylesheet" type="text/css" />
+<script src="//cdn.muicss.com/mui-0.4.7/js/mui.min.js"></script>
+
+   <!-- bootstrap -->
+<link 	href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"	rel="stylesheet">
+
+
+
+		<!-- circular loader -->
+<link rel="stylesheet" type="text/css" title="A" href="../styles/circularLoader.css">
+
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+
+
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="./SAstyles.css">
+<link rel="stylesheet" type="text/css" href="./foundation.css">
+
+
+<script async src="fbscript.js"></script>
+<script src="directives.js"></script>
+<script src="constants.js"></script>
 
 <!-- drawer.css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css">
@@ -54,6 +64,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
 <!-- drawer.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/js/drawer.min.js"></script>
+
+
+
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+
+
 
 
 
