@@ -348,6 +348,9 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 
 });
 
+function requestNotificationPermission() {
+}
+
 module.controller('simpleSearchController', function($scope, $log, $http,
 		StudentAssist) {
 	
@@ -368,12 +371,67 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 	$scope.subscribeNotifications = function()
 	{
 		
-		console.log("simple subscription came here");
 		
-		var subscribeNotificationsUrl = "?notificationType=0&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
-		+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader);
+
+
+		
+		if (Notification.requestPermission) {
+			Notification.requestPermission(function(result) {
+				console.log("Notification permission : ", result);
+				
+				
+				if (navigator.serviceWorker) {
+					console.log("ServiceWorkerssupported");
+
+					navigator.serviceWorker.register('sw.js', {
+						scope : './'
+					}).then(function(reg) {
+						console.log("ServiceWorkerstered", reg);
+					});
+
+				}
+
+				
+				
+				if (navigator.serviceWorker.controller) {
+					navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+						serviceWorkerRegistration.pushManager.subscribe({
+							userVisibleOnly : true
+						}).then(
+								function(subscription) {
+									console.log("SubscriptionPush successful: ",
+											subscription.endpoint);
+								});
+					});
+				} else {
+					console.log("No ServiceWorker");
+				}
+			
+				
+				
+				
+				var subscribeNotificationsUrl = "?notificationType=0&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
+				+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader)+"&userId=";
+				
+				
+				
+				
+				
+				
+			});
+		} else {
+			console.log("Not granted"+result);
+		}
+		
+		
+		
+		
+		
 		
 	}
+	
+	
+	
 	
 	// initilize leftSpinner
 	$scope.leftSpinnerValues = leftSpinnerValues;
