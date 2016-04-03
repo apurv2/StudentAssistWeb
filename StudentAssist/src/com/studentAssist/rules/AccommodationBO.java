@@ -29,7 +29,7 @@ public class AccommodationBO {
 	}
 
 	public String createUser(String firstName, String lastName, String phoneNumber, String email, String gcmId,
-			String userId,String deviceId) {
+			String userId, String deviceId) {
 		Users user = new Users();
 
 		user.setFirstName(firstName);
@@ -38,17 +38,23 @@ public class AccommodationBO {
 		user.setEmail(email);
 		user.setUserId(userId);
 		user.setRegisteredDate(new Date());
-		
-		GCMIds id = new GCMIds(gcmId, deviceId, new Date());
+
+		GCMIds id;
+		if (gcmId == "" || deviceId == "") {
+			id = null;
+		} else {
+			id = new GCMIds(gcmId, deviceId, new Date());
+		}
 
 		Session session = this.sessionFactory.openSession();
 
 		StudentAssistDAO studentAssist = new StudentAssistDAO();
-		return studentAssist.createUser(user, session,id);
+		return studentAssist.createUser(user, session, id);
 	}
 
 	public String createAccommodationAddFromFacebook(String userId, String apartmentName, String noOfRooms,
-			String vacancies, String cost, String gender, String fbId, String notes,String firstName,String lastName) {
+			String vacancies, String cost, String gender, String fbId, String notes, String firstName,
+			String lastName) {
 		Session session = this.sessionFactory.openSession();
 
 		Users user = new Users();
@@ -80,7 +86,12 @@ public class AccommodationBO {
 		return studentAssist.createAccommodationAdd(userId, advertisement, apartmentName, session);
 	}
 
-	public String insertNotifications(int notificationType, String spinner1, String spinner2, String userId) {
+	public String insertNotifications(int notificationType, String spinner1, String spinner2, String userId,String gcmId,
+			String deviceId) {
+
+		 GCMIds id = new GCMIds(gcmId, deviceId, new Date());
+		 
+
 		AccommodationNotification notification = null;
 		Session session = this.sessionFactory.openSession();
 		StudentAssistDAO studentAssist = new StudentAssistDAO();
@@ -110,7 +121,7 @@ public class AccommodationBO {
 			} else {
 				notification = new AdvancedNotifications(spinner1, spinner2);
 			}
-			return studentAssist.insertNotifications(userId, notification, session);
+			return studentAssist.insertNotifications(userId, notification, session,id);
 		}
 		return "already Subscribed";
 	}

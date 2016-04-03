@@ -14,8 +14,8 @@ public class GCMIds {
 	@JoinColumn(name = "USER_ID")
 	private Users user;
 
-	@Id
 	String gcmId;
+	@Id
 	String deviceId;
 	private Date createDate;
 
@@ -51,7 +51,7 @@ public class GCMIds {
 		this.createDate = createDate;
 	}
 
-	public GCMIds( String gcmId, String deviceId, Date createDate) {
+	public GCMIds(String gcmId, String deviceId, Date createDate) {
 		this.gcmId = gcmId;
 		this.deviceId = deviceId;
 		this.createDate = createDate;

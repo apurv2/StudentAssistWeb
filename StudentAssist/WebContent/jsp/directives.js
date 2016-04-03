@@ -373,59 +373,72 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 		
 		
 
-
+		
 		
 		if (Notification.requestPermission) {
 			Notification.requestPermission(function(result) {
+				
+				permissionResult=true;
 				console.log("Notification permission : ", result);
 				
-				
-				if (navigator.serviceWorker) {
-					console.log("ServiceWorkerssupported");
+				if(result =='granted')
+					{
+					
+					
+					
+					 var gcmId;
+						
+						if (navigator.serviceWorker.controller) {
+							navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+								serviceWorkerRegistration.pushManager.subscribe({
+									userVisibleOnly : true
+								}).then(
+										function(subscription) {
+											console.log("SubscriptionPush successful: ",
+													subscription.endpoint);
+											
+										     gcmId = subscription.endpoint.substring(40);
+										    
+										    console.log("gcmId="+gcmId);
 
-					navigator.serviceWorker.register('sw.js', {
-						scope : './'
-					}).then(function(reg) {
-						console.log("ServiceWorkerstered", reg);
-					});
 
-				}
+										    
+											
+											var subscribeNotificationsUrl = url+"insertNotifications?notificationType=0&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
+											+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader)+"&userId="+userId+"gcmId="
+											+gcmId;
+											
+											
+											
+											console.log("subscribeNotificationsUrl=="+subscribeNotificationsUrl);
+										    
+										    
+											
+										});
+							});
+						} else {
+							console.log("No ServiceWorker");
+						}
+					
+						
+					}
+				else
+					{
+					
+					console.log("permission not granted");
+					
+					
 
+					
+					}
+				
+	
 				
 				
-				if (navigator.serviceWorker.controller) {
-					navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-						serviceWorkerRegistration.pushManager.subscribe({
-							userVisibleOnly : true
-						}).then(
-								function(subscription) {
-									console.log("SubscriptionPush successful: ",
-											subscription.endpoint);
-								});
-					});
-				} else {
-					console.log("No ServiceWorker");
-				}
-			
-				
-				
-				
-				var subscribeNotificationsUrl = "?notificationType=0&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
-				+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader)+"&userId=";
-				
-				
-				
-				
-				
-				
+
 			});
-		} else {
-			console.log("Not granted"+result);
 		}
-		
-		
-		
-		
+
 		
 		
 	}

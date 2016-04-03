@@ -1,10 +1,22 @@
 var userId;
+var permissionResult=false;
+var createUserUrl="";
 $(document).ready(function() {
 
 	
 	$('.homeScreenIntent').click(function(){
 		
-
+		// user denied notification permission so sending user information to server
+		if(permissionResult==false)
+		{
+		
+			console.log("user denied notification permission so sending user information to server");
+			createUser(createUserUrl);
+		
+		}
+	
+		
+		
 		$('link[title=A]')[0].disabled=true;
 
 		$('.center').hide();
@@ -107,24 +119,96 @@ function loggedIn() {
 				$(".userName").text(
 						response.first_name + " " + response.last_name);
 
-				var createUserUrl = url + "createUser?" + FIRST_NAME + "="
+				 createUserUrl = url + "createUser?" + FIRST_NAME + "="
 						+ response.first_name + "&" + LAST_NAME + "="
 						+ response.last_name + "&" + USER_ID + "="
-						+ "123444";
+						+ response.id;
 
+				userId=response.id;
+				
 				console.log("url==" + createUserUrl);
 
-				/*
-				 * $.get( createUserUrl, function( data ) { $( ".result"
-				 * ).html( data );
-				 * 
-				 * 
-				 * });
-				 */
+				askPushNotificationPermission(createUserUrl);
 
+				
 			});
 
 }
 
 
+		function askPushNotificationPermission(createUserUrl)
+		{
+			
+		
+			if (Notification.requestPermission) {
+				Notification.requestPermission(function(result) {
+					
+					permissionResult=true;
+					console.log("Notification permission : ", result);
+					
+					if(result =='granted')
+						{
+						
+						
+						
+						 var gcmId;
+							
+							if (navigator.serviceWorker.controller) {
+								navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+									serviceWorkerRegistration.pushManager.subscribe({
+										userVisibleOnly : true
+									}).then(
+											function(subscription) {
+												console.log("SubscriptionPush successful: ",
+														subscription.endpoint);
+												
+											     gcmId = subscription.endpoint.substring(40);
+											    
+											    console.log("gcmId="+gcmId);
+												createUserUrl = createUserUrl+"deviceId="+"12345"+"&gcmId"+"="+gcmId;
 
+												createUser(createUserUrl);
+
+												
+											});
+								});
+							} else {
+								console.log("No ServiceWorker");
+							}
+						
+							
+						}
+					else
+						{
+						
+						console.log("permission not granted");
+						
+						
+						createUser(createUserUrl);
+
+						
+						}
+					
+		
+					
+					
+
+				});
+			} }
+
+	function createUser(createUserUrl)
+	{
+			
+					console.log("create user url=="+createUserUrl);
+	
+					
+		/*
+		 * $.get( createUserUrl, function( data ) { $( ".result"
+		 * ).html( data );
+		 * 
+		 * 
+		 * });
+		 */
+					
+		
+	}

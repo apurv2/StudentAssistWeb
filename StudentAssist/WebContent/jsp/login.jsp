@@ -20,6 +20,9 @@
 <script src="constants.js"></script>
 <link rel="stylesheet" type="text/css" href="./SAstyles.css">
 <script src="fbscript.js"></script>
+<script src="sw.js"></script>
+<link rel="manifest" href="manifest.json">
+
 
 
 

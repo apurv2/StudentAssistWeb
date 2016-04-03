@@ -31,11 +31,11 @@ public class Accommodation {
 	public String createUser(@QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName,
 			@QueryParam("phoneNumber") String phoneNumber, @QueryParam("emailId") String emailId,
 			@QueryParam("gcmId") String gcmId, @QueryParam("userId") String userId,
-			@Context HttpServletResponse response) {
+			@QueryParam("deviceId") String deviceId, @Context HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 
 		AccommodationBO bo = new AccommodationBO();
-		return bo.createUser(firstName, lastName, phoneNumber, emailId, gcmId, userId,"12345");
+		return bo.createUser(firstName, lastName, phoneNumber, emailId, gcmId, userId, deviceId);
 	}
 
 	@GET
@@ -69,11 +69,12 @@ public class Accommodation {
 	@Path("/insertNotifications")
 	public String insertNotifications(@QueryParam("notificationType") String notificationType,
 			@QueryParam("spinner1") String spinner1, @QueryParam("spinner2") String spinner2,
-			@QueryParam("userId") String userId, @Context HttpServletResponse response) {
+			@QueryParam("userId") String userId, @QueryParam("gcmId") String gcmId,
+			@QueryParam("deviceId") String deviceId, @Context HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 
 		AccommodationBO bo = new AccommodationBO();
-		return bo.insertNotifications(Integer.parseInt(notificationType), spinner1, spinner2, userId);
+		return bo.insertNotifications(Integer.parseInt(notificationType), spinner1, spinner2, userId, gcmId, deviceId);
 	}
 
 	@GET
@@ -188,17 +189,16 @@ public class Accommodation {
 	@GET
 	@Path("/test")
 	public String test() {
-		
+
 		AccommodationBO bo = new AccommodationBO();
-		
-		//ApartmentDetails details = new ApartmentDetails();
-		//details.addAptsToNewDb();
-		
-		//return "success";
 
-		return bo.createUser("Apurv", "Kamalapuri", "", "", "6789", "1118294135","56789");
-			//return	createBuilder();
+		// ApartmentDetails details = new ApartmentDetails();
+		// details.addAptsToNewDb();
 
+		// return "success";
+
+		return bo.createUser("Apurv", "Kamalapuri", "", "", "6789", "1118294135", "56789");
+		// return createBuilder();
 
 	}
 
@@ -207,15 +207,12 @@ public class Accommodation {
 		Sender sender = new Sender(API_KEY);
 
 		Message message = builder.build();
-		
-			
-		
+
 		MulticastResult result = sender.send(message, gcmIds, 1);
 
 		System.out.println("result = " + result);
-			return result+"";
+		return result + "";
 	}
-	
 
 	private String createBuilder() {
 		Message.Builder builder = new Message.Builder();
@@ -240,11 +237,3 @@ public class Accommodation {
 	}
 
 }
-
-
-
-
-
-
-
-
