@@ -37,41 +37,15 @@
 <link rel="stylesheet" type="text/css" title="A" href="../styles/circularLoader.css">
 
 
-
-
-
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
-
-
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
-
-
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-<link rel="stylesheet" type="text/css" href="./SAstyles.css">
-<link rel="stylesheet" type="text/css" href="./foundation.css">
-
-
-<script async src="fbscript.js"></script>
-<script src="directives.js"></script>
-<script src="constants.js"></script>
-
-<!-- drawer.css -->
+<!-- navigation drawer -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css">
-<!-- jquery & iScroll -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
-<!-- drawer.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/js/drawer.min.js"></script>
 
 
 
-
-<!-- Compiled and minified CSS -->
+				<!-- material ui -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-
-<!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
 
