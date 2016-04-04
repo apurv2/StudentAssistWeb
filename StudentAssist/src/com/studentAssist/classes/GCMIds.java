@@ -1,5 +1,6 @@
 package com.studentAssist.classes;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,8 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class GCMIds {
-
+public class GCMIds implements Serializable {
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "USER_ID")
 	private Users user;

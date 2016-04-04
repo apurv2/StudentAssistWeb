@@ -35,12 +35,12 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('push', function(event) {
   console.log('Push message', event);
 
-  var title = 'Push message';
+  var title = 'We have an Apartment for you!!';
 
   event.waitUntil(
     self.registration.showNotification(title, {
-      'body': 'finally',
-      'icon': 'images/icon.png'
+      'body': 'Check it out!',
+      'icon': 'images/ic_logo.png'
     }));
 });
 

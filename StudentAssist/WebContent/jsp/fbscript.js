@@ -1,214 +1,175 @@
 var userId;
-var permissionResult=false;
-var createUserUrl="";
-$(document).ready(function() {
+var permissionResult = false;
+var createUserUrl = "";
+$(document)
+  .ready(
+    function() {
 
-	
-	$('.homeScreenIntent').click(function(){
-		
-		// user denied notification permission so sending user information to server
-		if(permissionResult==false)
-		{
-		
-			console.log("user denied notification permission so sending user information to server");
-			createUser(createUserUrl);
-		
-		}
-	
-		
-		
-		$('link[title=A]')[0].disabled=true;
+      $('.homeScreenIntent')
+        .click(
+          function() {
 
-		$('.center').hide();
-		
-		/*$(".center").animate({
-			width : 'hide'
-		}, 350);
-*/
+            // user denied notification permission
+            // so sending user information to server
+            if (permissionResult == false) {
+              console.log("user denied notification permission so sending user information to server");
+              createUser(createUserUrl);
+            }
 
-		
-		$("#homeScreenActivity").animate({
-			width : 'show'
-		}, 350);
+         
+            $('link[title=A]')[0].disabled = true;
+            $('.center').hide();
+            $("#homeScreenActivity").animate({
+              width: 'show'
+            }, 350);
 
+          });
 
-		
-		
-	});
-	
-	$('#login').click(function(){
-		
-		FB.login(function(response) {
-			if (response.status === 'connected') {
+      $('#login').click(function() {
 
-				loggedIn();
+        FB.login(function(response) {
+          if (response.status === 'connected') {
 
-			} else {
+            loggedIn();
 
-				$('#progressBar').hide();
-				$('.loginButton').show();
+          } else {
 
-			}
+            $('#progressBar').hide();
+            $('.loginButton').show();
 
-		}, {
-			scope : 'email'
-		});
-		
-	});
-	
-	
+          }
 
-});
+        }, {
+          scope: 'email'
+        });
+
+      });
+
+    });
 
 window.fbAsyncInit = function() {
-	FB.init({
-		appId : '297115703779135',
-		xfbml : true,
-		version : 'v2.5'
-	});
+  FB.init({
+    appId: '297115703779135',
+    xfbml: true,
+    version: 'v2.5'
+  });
 
-	
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') {
 
-	FB.getLoginStatus(function(response) {
-		if (response.status === 'connected') {
+      loggedIn();
 
-			
-			
-			loggedIn();
+    } else {
 
-		} else {
+      $('#progressBar').hide();
+      $('.loginButton').show();
 
-			$('#progressBar').hide();
-			$('.loginButton').show();
-
-		}
-	});
+    }
+  });
 };
 (function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) {
-		return;
-	}
-	js = d.createElement(s);
-	js.id = id;
-	js.async = true;
-	js.src = "//connect.facebook.net/en_US/sdk.js";
-	fjs.parentNode.insertBefore(js, fjs);
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {
+    return;
+  }
+  js = d.createElement(s);
+  js.id = id;
+  js.async = true;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-
-
-
 function loggedIn() {
-	$("#loginLanding").animate({
-		width : 'toggle'
-	}, 350);
-	$("#homeScreen").animate({
-		width : 'toggle'
-	}, 350);
+  $("#loginLanding").animate({
+    width: 'toggle'
+  }, 350);
+  $("#homeScreen").animate({
+    width: 'toggle'
+  }, 350);
 
-	FB.api('/me', 'GET', {
-		fields : 'first_name,last_name,id'
-	},
-			function(response) {
+  FB.api('/me', 'GET', {
+    fields: 'first_name,last_name,id'
+  }, function(response) {
 
-				$(".headerImage").attr(
-						"src",
-						"http://graph.facebook.com/" + response.id
-								+ "/picture?type=normal");
-				$(".userName").text(
-						response.first_name + " " + response.last_name);
+    $(".headerImage").attr(
+      "src",
+      "http://graph.facebook.com/" + response.id + "/picture?type=normal");
+    $(".userName").text(response.first_name + " " + response.last_name);
 
-				 createUserUrl = url + "createUser?" + FIRST_NAME + "="
-						+ response.first_name + "&" + LAST_NAME + "="
-						+ response.last_name + "&" + USER_ID + "="
-						+ response.id;
+    createUserUrl = url + "createUser?" + FIRST_NAME + "=" + response.first_name + "&" + LAST_NAME + "=" + response.last_name + "&" + USER_ID + "=" + response.id;
 
-				userId=response.id;
-				
-				console.log("url==" + createUserUrl);
+    userId = response.id;
 
-				askPushNotificationPermission(createUserUrl);
+    console.log("url==" + createUserUrl);
 
-				
-			});
+    askPushNotificationPermission(createUserUrl);
+
+  });
 
 }
 
+function askPushNotificationPermission(createUserUrl) {
 
-		function askPushNotificationPermission(createUserUrl)
-		{
-			
-		
-			if (Notification.requestPermission) {
-				Notification.requestPermission(function(result) {
-					
-					permissionResult=true;
-					console.log("Notification permission : ", result);
-					
-					if(result =='granted')
-						{
-						
-						
-						
-						 var gcmId;
-							
-							if (navigator.serviceWorker.controller) {
-								navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-									serviceWorkerRegistration.pushManager.subscribe({
-										userVisibleOnly : true
-									}).then(
-											function(subscription) {
-												console.log("SubscriptionPush successful: ",
-														subscription.endpoint);
-												
-											     gcmId = subscription.endpoint.substring(40);
-											    
-											    console.log("gcmId="+gcmId);
-												createUserUrl = createUserUrl+"deviceId="+"12345"+"&gcmId"+"="+gcmId;
+  if (Notification.requestPermission) {
+    Notification
+      .requestPermission(function(result) {
 
-												createUser(createUserUrl);
+        permissionResult = true;
+        console.log("Notification permission : ", result);
 
-												
-											});
-								});
-							} else {
-								console.log("No ServiceWorker");
-							}
-						
-							
-						}
-					else
-						{
-						
-						console.log("permission not granted");
-						
-						
-						createUser(createUserUrl);
+        if (result == 'granted') {
 
-						
-						}
-					
-		
-					
-					
+          var gcmId;
 
-				});
-			} }
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.ready
+              .then(function(serviceWorkerRegistration) {
+                serviceWorkerRegistration.pushManager
+                  .subscribe({
+                    userVisibleOnly: true
+                  })
+                  .then(
+                    function(subscription) {
+                      console
+                        .log(
+                          "SubscriptionPush successful: ",
+                          subscription.endpoint);
 
-	function createUser(createUserUrl)
-	{
-			
-					console.log("create user url=="+createUserUrl);
-	
-					
-		/*
-		 * $.get( createUserUrl, function( data ) { $( ".result"
-		 * ).html( data );
-		 * 
-		 * 
-		 * });
-		 */
-					
-		
-	}
+                      gcmId = subscription.endpoint
+                        .substring(40);
+
+                      console
+                        .log("gcmId=" + gcmId);
+                      createUserUrl = createUserUrl + "&deviceId=" + "chrome" + "&gcmId" + "=" + gcmId;
+
+                      createUser(createUserUrl);
+
+                    });
+              });
+          } else {
+            console.log("No ServiceWorker");
+          }
+
+        } else {
+
+          console.log("permission not granted");
+
+          createUser(createUserUrl);
+
+        }
+
+      });
+  }
+}
+
+function createUser(createUserUrl) {
+
+  console.log("create user url==" + createUserUrl);
+
+  $.get(createUserUrl, function(data) {
+
+	  	console.log(data);
+	  
+  });
+
+}

@@ -192,13 +192,16 @@ public class Accommodation {
 
 		AccommodationBO bo = new AccommodationBO();
 
-		// ApartmentDetails details = new ApartmentDetails();
-		// details.addAptsToNewDb();
+		 ApartmentDetails details = new ApartmentDetails();
+		 details.addAptsToNewDb();
 
+		 
 		// return "success";
 
-		return bo.createUser("Apurv", "Kamalapuri", "", "", "6789", "1118294135", "56789");
+		//return bo.createUser("Apurv", "Kamalapuri", "", "", "6789", "1118294135", "56789");
 		// return createBuilder();
+		
+		return "";
 
 	}
 

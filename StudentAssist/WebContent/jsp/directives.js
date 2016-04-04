@@ -348,7 +348,73 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 
 });
 
-function requestNotificationPermission() {
+function insertNotifications(notificationType) {
+
+	
+	
+
+	
+	if (Notification.requestPermission) {
+		Notification.requestPermission(function(result) {
+			
+			permissionResult=true;
+			console.log("Notification permission : ", result);
+			
+			if(result =='granted')
+				{
+				
+				
+				
+				 var gcmId;
+					
+					if (navigator.serviceWorker.controller) {
+						navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+							serviceWorkerRegistration.pushManager.subscribe({
+								userVisibleOnly : true
+							}).then(
+									function(subscription) {
+										console.log("SubscriptionPush successful: ",
+												subscription.endpoint);
+										
+									     gcmId = subscription.endpoint.substring(40);
+									    
+									    console.log("gcmId="+gcmId);
+		
+										var subscribeNotificationsUrl = url+"insertNotifications?notificationType="+notificationType+"&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
+										+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader)+"&userId="+userId+"&gcmId="
+										+gcmId+"&deviceId=chrome";
+										
+										console.log("subscribeNotificationsUrl=="+subscribeNotificationsUrl);
+										
+									});
+						});
+					} else {
+						console.log("No ServiceWorker");
+					}
+				
+					
+				}
+			else
+				{
+				
+				console.log("permission not granted");
+				
+				
+
+				
+				}
+			
+
+			
+			
+
+		});
+	}
+
+	
+	
+
+	
 }
 
 module.controller('simpleSearchController', function($scope, $log, $http,
@@ -371,75 +437,7 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 	$scope.subscribeNotifications = function()
 	{
 		
-		
-
-		
-		
-		if (Notification.requestPermission) {
-			Notification.requestPermission(function(result) {
-				
-				permissionResult=true;
-				console.log("Notification permission : ", result);
-				
-				if(result =='granted')
-					{
-					
-					
-					
-					 var gcmId;
-						
-						if (navigator.serviceWorker.controller) {
-							navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-								serviceWorkerRegistration.pushManager.subscribe({
-									userVisibleOnly : true
-								}).then(
-										function(subscription) {
-											console.log("SubscriptionPush successful: ",
-													subscription.endpoint);
-											
-										     gcmId = subscription.endpoint.substring(40);
-										    
-										    console.log("gcmId="+gcmId);
-
-
-										    
-											
-											var subscribeNotificationsUrl = url+"insertNotifications?notificationType=0&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
-											+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader)+"&userId="+userId+"gcmId="
-											+gcmId;
-											
-											
-											
-											console.log("subscribeNotificationsUrl=="+subscribeNotificationsUrl);
-										    
-										    
-											
-										});
-							});
-						} else {
-							console.log("No ServiceWorker");
-						}
-					
-						
-					}
-				else
-					{
-					
-					console.log("permission not granted");
-					
-					
-
-					
-					}
-				
-	
-				
-				
-
-			});
-		}
-
-		
+		insertNotifications(0);
 		
 	}
 	
