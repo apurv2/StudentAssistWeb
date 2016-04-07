@@ -40,7 +40,10 @@ public class AccommodationBO {
 		user.setRegisteredDate(new Date());
 
 		GCMIds id;
-		if (gcmId == "" || deviceId == "") {
+
+		System.out.println("gcmId=" + gcmId + "deviceId=" + deviceId);
+
+		if (gcmId == null || deviceId == null) {
 			id = null;
 		} else {
 			id = new GCMIds(gcmId, deviceId, new Date());
@@ -86,11 +89,10 @@ public class AccommodationBO {
 		return studentAssist.createAccommodationAdd(userId, advertisement, apartmentName, session);
 	}
 
-	public String insertNotifications(int notificationType, String spinner1, String spinner2, String userId,String gcmId,
-			String deviceId) {
+	public String insertNotifications(int notificationType, String spinner1, String spinner2, String userId,
+			String gcmId, String deviceId) {
 
-		 GCMIds id = new GCMIds(gcmId, deviceId, new Date());
-		 
+		GCMIds id = new GCMIds(gcmId, deviceId, new Date());
 
 		AccommodationNotification notification = null;
 		Session session = this.sessionFactory.openSession();
@@ -121,7 +123,7 @@ public class AccommodationBO {
 			} else {
 				notification = new AdvancedNotifications(spinner1, spinner2);
 			}
-			return studentAssist.insertNotifications(userId, notification, session,id);
+			return studentAssist.insertNotifications(userId, notification, session, id);
 		}
 		return "already Subscribed";
 	}

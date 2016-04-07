@@ -162,18 +162,18 @@ public class StudentAssistDAO {
 		return "success";
 	}
 
-	public String insertNotifications(String userId, AccommodationNotification notification, Session session, GCMIds id) {
+	public String insertNotifications(String userId, AccommodationNotification notification, Session session,
+			GCMIds id) {
 		try {
 			try {
 				session.beginTransaction();
 				notification.setCreateDate(new Date());
 				Users user = (Users) session.get((Class) Users.class, (Serializable) ((Object) userId));
-				
-				
+
 				// adding gcm Ids to User and vice versa
 				this.addGcmIdToUser(user, id);
 				session.saveOrUpdate((Object) id);
-				
+
 				this.addNotificationToUser(user, notification);
 				session.save((Object) notification);
 				session.getTransaction().commit();

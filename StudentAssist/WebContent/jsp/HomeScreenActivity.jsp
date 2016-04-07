@@ -1,7 +1,9 @@
+<% int a = 10; String hiddenField="12"; %>
+<%String url3="http://studentassist.elasticbeanstalk.com/rest/accommodation/";%>
 
 
 
-<div class="panel panel-default" style="background:#B4CDCD; overflow-y:hidden !important;height:100%;" >
+<div class="panel panel-default" style=" background-image: url('../images/green-background.jpg'); overflow-y:hidden !important;height:100%;" >
  
  <div class="panel-body" style="margin-bottom:100px;margin-top:10px">
 
@@ -40,7 +42,7 @@
     <i class="fa fa-paper-plane istyle"></i> &nbsp&nbsp&nbsp&nbsp&nbspPost Accommodation</div></a></li>
      
      <li class="istyle">
-    <a  class="headerCollapse ripple rippleAddList" style="padding:inherit;" href="#AdvancedSearch"> <div class=" navRow">  
+    <a  class="headerCollapse ripple rippleAddList" style="padding:inherit;" href="#UsersPosts"> <div class=" navRow">  
     <i class="fa fa-user istyle"></i> &nbsp&nbsp&nbsp&nbsp&nbspYour Posts</div></a></li>
     
     <li class="istyle">
@@ -81,7 +83,7 @@
         showOverlay: true
       });
 
-      
+      console.log("url hidden=="+<%=hiddenField%>+"end url");
       
       
     

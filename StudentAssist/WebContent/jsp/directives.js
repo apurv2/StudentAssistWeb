@@ -14,9 +14,6 @@ module.directive("mdpagination", function(){
         link: function(scope, element, attrs){
             element.on('click', function(event){
 
-
-   		     
-
   			  event.preventDefault();
   		      
   		      
@@ -42,6 +39,7 @@ module.directive("mdpagination", function(){
 
   		      window.setTimeout(function(){
   		        $div.remove();
+  		        
   		      }, 2000);
   		    
             
@@ -104,6 +102,19 @@ module.service('StudentAssist', function($http, $log) {
 		return $http.get(advancedSearchUrl);
 
 	}
+	
+	
+	this.usersPosts = function(userId) {
+		// alert("hello");
+
+		var userPostsUrl = url
+				+ "getUserPosts?userId="+userId;
+
+		return $http.get(userPostsUrl);
+
+	}
+	
+	
 
 });
 
@@ -229,6 +240,60 @@ module.controller('advancedSearchController', function($scope, $log, $http,
 
 });
 
+module.controller('userPostsController', function($scope, $log, $http,
+		StudentAssist) {
+	
+	$scope.advertisements = [];
+	
+	
+	// called when an add on left panel is clicked
+	$scope.addClick = function(advertisement) {
+		
+			$scope.adDetails_apartmentName = advertisement.apartmentName;
+			$scope.adDetails_noOfRooms = advertisement.noOfRooms;
+			$scope.adDetails_vacancies =advertisement.vacancies;
+			$scope.adDetails_cost = advertisement.cost;
+			$scope.adDetails_notes = advertisement.notes;
+			$scope.adDetails_gender = advertisement.gender;
+			$scope.adDetails_userId =advertisement.userId;
+			$scope.adDetails_name =advertisement.firstName +" "+advertisement.lastName ;
+			
+			console.log("vcalue=="+	$scope.adDetails_apartmentName);
+
+
+	}
+	
+	
+	StudentAssist.usersPosts(userId).success(
+			function(response) {
+
+				$scope.advertisements.length = 0;
+				$scope.advertisements.push.apply($scope.advertisements,
+						response);
+				
+				if($scope.advertisements.length>0)
+					{
+				
+				$scope.adDetails_apartmentName = $scope.advertisements[0].apartmentName;
+				$scope.adDetails_noOfRooms = $scope.advertisements[0].noOfRooms;
+				$scope.adDetails_vacancies =$scope.advertisements[0].vacancies;
+				$scope.adDetails_cost = $scope.advertisements[0].cost;
+				$scope.adDetails_notes = $scope.advertisements[0].notes;
+				$scope.adDetails_gender = $scope.advertisements[0].gender;
+				$scope.adDetails_userId =$scope.advertisements[0].userId;
+				$scope.adDetails_name =$scope.advertisements[0].firstName +" "+$scope.advertisements[0].lastName ;
+
+					}
+
+
+			}).error(function(response) {
+	});
+
+	
+	
+});
+
+
 module.controller('postAccommodationController', function($scope, $log, $http,
 		StudentAssist) {
 
@@ -348,7 +413,7 @@ module.controller('postAccommodationController', function($scope, $log, $http,
 
 });
 
-function insertNotifications(notificationType) {
+function insertNotifications(notificationType ,leftSpinner, rightSpinner) {
 
 	
 	
@@ -359,6 +424,20 @@ function insertNotifications(notificationType) {
 			
 			permissionResult=true;
 			console.log("Notification permission : ", result);
+			
+			
+
+	        if (navigator.serviceWorker) {
+	        	console.log("ServiceWorkerssupported");
+
+	        	navigator.serviceWorker.register('sw.js', {
+	        		scope : './'
+	        	}).then(function(reg) {
+	        		console.log("ServiceWorkerstered", reg);
+	        	});
+
+	        }
+	        
 			
 			if(result =='granted')
 				{
@@ -380,11 +459,19 @@ function insertNotifications(notificationType) {
 									    
 									    console.log("gcmId="+gcmId);
 		
-										var subscribeNotificationsUrl = url+"insertNotifications?notificationType="+notificationType+"&spinner1="+encodeURIComponent($scope.leftSpinnerHeader)
-										+"&spinner2="+encodeURIComponent($scope.rightSpinnerHeader)+"&userId="+userId+"&gcmId="
-										+gcmId+"&deviceId=chrome";
+										var subscribeNotificationsUrl = url+"insertNotifications?notificationType="+notificationType+"&spinner1="+encodeURIComponent(leftSpinner)
+										+"&spinner2="+encodeURIComponent(rightSpinner)+"&userId="+userId+"&gcmId="+gcmId+"&deviceId=chrome";
 										
 										console.log("subscribeNotificationsUrl=="+subscribeNotificationsUrl);
+										
+										
+										$.get(subscribeNotificationsUrl, function(data) {
+
+										  	console.log(data);
+										  
+									  });
+
+										
 										
 									});
 						});
@@ -437,7 +524,7 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 	$scope.subscribeNotifications = function()
 	{
 		
-		insertNotifications(0);
+		insertNotifications(0,$scope.leftSpinnerHeader,$scope.rightSpinnerHeader);
 		
 	}
 	
@@ -627,7 +714,7 @@ module.controller('simpleSearchController', function($scope, $log, $http,
 			.querySelector('#dropdown-long-content'));
 });
 
-
+//userPostsController
 module.config(['$routeProvider',function($routeProvider)
        		{
        			$routeProvider.when('/SimpleSearch',{
@@ -641,7 +728,11 @@ module.config(['$routeProvider',function($routeProvider)
        	       				,{
        	       					templateUrl:'PostAccommodationActivity.jsp',
        	       					controller:'postAccommodationController'
-       	       				}).otherwise({
+       	       				}).when('/UsersPosts'
+       	       	       				,{
+       	       	       					templateUrl:'UsersPostsActivity.jsp',
+       	       	       					controller:'userPostsController'
+       	       	       				}).otherwise({
        				redirectTo:'SimpleSearch'
        			})
        	}]);

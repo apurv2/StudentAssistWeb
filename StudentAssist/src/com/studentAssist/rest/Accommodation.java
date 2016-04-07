@@ -192,21 +192,21 @@ public class Accommodation {
 
 		AccommodationBO bo = new AccommodationBO();
 
-		 ApartmentDetails details = new ApartmentDetails();
+		/* ApartmentDetails details = new ApartmentDetails();
 		 details.addAptsToNewDb();
-
+*/
 		 
 		// return "success";
 
 		//return bo.createUser("Apurv", "Kamalapuri", "", "", "6789", "1118294135", "56789");
-		// return createBuilder();
+		 return createBuilder();
 		
-		return "";
+		//return "";
 
 	}
 
 	private String sendMessage(Message.Builder builder, List<String> gcmIds) throws IOException {
-		String API_KEY = "AIzaSyBN22-yHrj9iZSISNIiG0VdJaJghLtmjCg";
+		String API_KEY = "AIzaSyDGnCgvHV1vDQW-WyDFnVZOuZTZ4X_uNLA";
 		Sender sender = new Sender(API_KEY);
 
 		Message message = builder.build();
@@ -229,7 +229,7 @@ public class Accommodation {
 
 		List<String> gcmIds = new ArrayList();
 		gcmIds.add(
-				"cHeqJP4rZGI:APA91bET1vrf0wjNQsNkfyOM7ePJNLwhFeG92t6m_x4pf5fHgYtEVEbfc5b8ZZ5dv1KLykhaYD74-2zp_38c0aXgXacbCap5bKKGi3w8wQzY4CojFueF-ZJZ6It1QUlw5uvNKq0UyQnZ");
+				"foe8BRPPQf0:APA91bE9aKP8FY-optaz_q9mBxeChfC6y8JQ7bxo6bIAT-N2-4P4oxeOBjg_Qzo8g9s6CqXxcRmzyR3AjSYYOHzshPoFCQlD5jCunsZn4LFncyodVQYyRRav_WG16HhQvvBqg8pfmSU0");
 
 		try {
 			return sendMessage(builder, gcmIds);

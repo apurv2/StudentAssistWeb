@@ -1,6 +1,19 @@
 <html>
 <script>
     $(document).ready(function() {
+    	
+        $('.responseButton').click(function() {
+
+            $(".customDropdown").animate({
+              height: 'toggle'
+            }, 350);
+
+          });
+      
+
+        
+    	
+    	
 
       $('.subscribeButton').click(function() {
 
@@ -62,12 +75,12 @@
 
             <div class="row">
               <div class="columns small-5">
-                <label>apartmentType:</label>
+                <label>{{leftSpinnerHeader}}</label>
 
               </div>
 
               <div class="columns small-5">
-                <label>On-Campus</label>
+                <label>{{rightSpinnerHeader}}</label>
 
               </div>
               <div class="columns small-2"></div>
@@ -77,10 +90,10 @@
             <div class="row">
               <div class="columns small-6" style="visibility: hidden;">a</div>
               <div class="columns small-3 subscribePopupButtons">
-                <a class="waves-effect  btn-flat  subscribePopupButtons">No</a>
+                <a class="waves-effect  btn-flat  subscribePopupButtons responseButton">No</a>
               </div>
               <div class="columns small-3 subscribePopupButtons">
-                <a class="waves-effect  btn-flat  subscribePopupButtons" ng-click="subscribeNotifications()">Yes</a>
+                <a class="waves-effect  btn-flat  subscribePopupButtons responseButton" ng-click="subscribeNotifications()">Yes</a>
 
               </div>
 

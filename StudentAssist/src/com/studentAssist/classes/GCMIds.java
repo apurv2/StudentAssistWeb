@@ -20,6 +20,13 @@ public class GCMIds implements Serializable {
 	String deviceId;
 	private Date createDate;
 
+	
+	
+	public GCMIds() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Users getUser() {
 		return user;
 	}

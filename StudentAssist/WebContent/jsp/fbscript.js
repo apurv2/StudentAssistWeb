@@ -46,7 +46,7 @@ $(document)
       });
 
     });
-
+//931333680308184 - fb id for aws
 window.fbAsyncInit = function() {
   FB.init({
     appId: '297115703779135',
@@ -78,6 +78,15 @@ window.fbAsyncInit = function() {
   js.src = "//connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+function adClick(clickedAdvertisement)
+{
+	
+	$(clickedAdvertisement).siblings().css('background-color','white');
+	$(clickedAdvertisement).css('background-color','#FAFAFA');
+
+
+}
 
 function loggedIn() {
   $("#loginLanding").animate({
@@ -117,6 +126,19 @@ function askPushNotificationPermission(createUserUrl) {
         permissionResult = true;
         console.log("Notification permission : ", result);
 
+        if (navigator.serviceWorker) {
+        	console.log("ServiceWorkerssupported");
+
+        	navigator.serviceWorker.register('sw.js', {
+        		scope : './'
+        	}).then(function(reg) {
+        		console.log("ServiceWorkerstered", reg);
+        	});
+
+        }
+        
+        
+        
         if (result == 'granted') {
 
           var gcmId;

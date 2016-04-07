@@ -74,6 +74,10 @@ public class PushNotification {
 		}
 		List<String> gcmIds = new ArrayList();
 		for (AccommodationNotification notification : notificationSet) {
+			
+			System.out.println("userId==="+ notification.getUser().getUserId());
+			
+			
 			List<GCMIds> gcmIdsOfUser = notification.getUser().getGcmIds();
 			for (GCMIds gcmId : gcmIdsOfUser) {
 				gcmIds.add(gcmId.getGcmId());
