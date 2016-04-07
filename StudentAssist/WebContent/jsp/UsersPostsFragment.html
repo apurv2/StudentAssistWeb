@@ -1,0 +1,58 @@
+<html>
+
+<body>
+
+<br/>
+
+		<div  class="pane-list-body sidebar2" data-list-scroll-container="true">
+
+		<ul>
+			<li ng-repeat="advertisement in advertisements" onclick="adClick(this);">
+			
+				<div mdpagination class="apurv ripple rippleAddList"  ng-click="addClick(advertisement)"style=" height: 72px;">
+					<div class="chat">
+					
+						<div class="chat-avatar">
+							<div class=" avatar icon-user-default">
+
+								<img class="avatar-image"
+									src="http://graph.facebook.com/{{advertisement.userId}}/picture?type=normal" />
+							</div>
+						</div>
+						<div class="chat-body ">
+
+							<div class="chat-main chat-title">
+
+
+
+								<span class="emojitext ellipsify">{{advertisement.apartmentName}}</span>
+								<div class="chat-meta">
+
+									<span class="chat-time"><label>$ </label>{{advertisement.cost}}</span>
+
+								</div>
+
+							</div>
+							<div class="chat-secondary">
+								<div class="chat-status">
+
+									<span class="emojitext ellipsify">
+										{{advertisement.noOfRooms}} </span>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+</div>
+
+
+
+
+
+
+</body>
